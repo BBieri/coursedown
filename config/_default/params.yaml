@@ -45,7 +45,8 @@ course:
   github: "bbieri/somecourse" # Course repo
   slack: "https://slack.com"
 
-
+# Note: these are the original blogdown parameters. Don't uncomment them unless
+# you know what you're doing.
 # email: test@example.org
 # phone: 888 888 88 88
 # address:
@@ -58,11 +59,11 @@ course:
 # coordinates:
 #   latitude: '37.4275'
 #   longitude: '-122.1697'
-directions: P1-S1
-office_hours:
-  - 'Monday 10:00 to 13:00'
-  - 'Wednesday 09:00 to 10:00'
-appointment_url: 'https://calendly.com'
+# directions: P1-S1
+# office_hours:
+#   - 'Monday 10:00 to 13:00'
+#   - 'Wednesday 09:00 to 10:00'
+# appointment_url: 'https://calendly.com'
 # contact_links:
   # - icon: twitter
   #   icon_pack: fab

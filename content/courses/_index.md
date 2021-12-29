@@ -2,9 +2,11 @@
 header:
   caption: ""
   image: ""
-title: Courses
+title: Resources
 type: page
 view: 2
 ---
 
-I teach the following courses:
+You can add additional resources for students here. The premise of this section
+is to provide them with resources on *how* to learn programming by showcasing
+useful resources, giving insightful tips, or creating cheatsheets.

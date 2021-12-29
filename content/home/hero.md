@@ -12,7 +12,7 @@ cta_alt:
   url: https://slack.com
 cta_note:
   label: >-
-    Lorem ipsum...
+    Last updated: 2021-12-29
 design:
   background:
     image: mdp.jpg
