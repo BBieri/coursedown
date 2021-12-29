@@ -3,9 +3,6 @@
 # Documentation: https://wowchemy.com/docs/getting-started/page-builder/
 widget: blank
 
-# Activate this widget? true/false
-active: true
-
 # This file represents a page section.
 headless: true
 
@@ -26,6 +23,9 @@ design:
     text_color_light: false
   spacing:
     padding: ["20px", "0", "20px", "0"]
+
+# Do you want to display this widget or not?
+active: false
 ---
 
 Welcome to the demo of the **academic resumé template** for Wowchemy, the Website Builder for Hugo.

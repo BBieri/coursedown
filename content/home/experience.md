@@ -47,4 +47,6 @@ experience:
 
 design:
   columns: '2'
+# Do you want to display this widget or not?
+active: false
 ---

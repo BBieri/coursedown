@@ -28,12 +28,15 @@ feature:
   icon: camera-retro
   icon_pack: fas
   name: Photography
+  
+# Do you want to display this widget or not?
+active: false
 
 # Uncomment to use emoji icons.
 #- icon: ':smile:'
 #  icon_pack: emoji
 #  name: Emojiness
-#  description: 100% 
+#  description: 100%
 
 # Uncomment to use custom SVG icons.
 # Place your custom SVG icon in `assets/media/icons/`.

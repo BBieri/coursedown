@@ -3,8 +3,6 @@
 # Documentation: https://wowchemy.com/docs/page-builder/
 widget: about
 
-# Activate this widget? true/false
-active: true
 
 # This file represents a page section.
 headless: true
@@ -18,4 +16,7 @@ title: Biography
 # This should be the username (folder name) of a profile in your `content/authors/` folder.
 # See https://wowchemy.com/docs/get-started/#introduce-yourself
 author: admin
+
+# Do you want to display this widget or not?
+active: false
 ---

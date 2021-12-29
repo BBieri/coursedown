@@ -4,24 +4,27 @@
 #   The weight parameter defines the order that the links will appear in.
 
 main:
-  - name: Demo
-    url: '#about'
-    weight: 10
-  - name: Posts
-    url: '#posts'
-    weight: 20
-  - name: Projects
-    url: '#projects'
-    weight: 30
-  - name: Talks
-    url: '#talks'
-    weight: 40
-  - name: Publications
-    url: '#featured'
-    weight: 50
-  - name: Courses
-    url: courses/
-    weight: 60
-  - name: Contact
-    url: '#contact'
-    weight: 70
+  - name: Syllabus
+    url: 'https://www.graduateinstitute.ch/courses' # Insert the URL to your PDF syllabus here
+    weight: 1
+  - name: Classes
+    url: 'post'
+    weight: 2
+  - name: Assignments
+    url: 'courses/assignments/'
+    weight: 3
+  - name: Resources
+    url: 'courses/resources/'
+    weight: 4
+  - name: '<i class="fab fa-slack"></i>'
+    url: "https://slack.com"
+    weight: 5
+  # - name: Publications
+  #   url: '#featured'
+  #   weight: 50
+  # - name: Courses
+  #   url: courses/
+  #   weight: 60
+  # - name: Contact
+  #   url: '#contact'
+  #   weight: 70

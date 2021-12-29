@@ -45,4 +45,7 @@ design:
 
   # For Showcase view, flip alternate rows?
   flip_alt_rows: false
+  
+# Do you want to display this widget or not?
+active: false
 ---
