@@ -1,409 +1,326 @@
 ---
-title: "Lab 03: CS631"
-subtitle: "Working with Data"
-author: "Alison Hill"
+title: "Title"
+subtitle: "Subtitle"
+author: "<large>Author Name</large>"
+# institute: "<small>Graduate Institute Geneva</small>" # uncomment to include
+# date: "`r format(Sys.Date(), '%A, %e %B, %Y')`" # uncomment to include
 output:
   xaringan::moon_reader:
-    css: ["default", "css/ohsu.css", "css/ohsu-fonts.css"]
-    lib_dir: libs
+    css: 
+      - "default"
+      - "css/iheid-xaringan-style.css" # You need to change this file path to css/...
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      - "ninjutsu"
+    chakra: "https://remarkjs.com/downloads/remark-latest.min.js"
+    # if you want to work offline, run the following command...
+    # xaringan::summon_remark()
+    # ...and then comment out lines 10-13 and uncomment lines 14-15:
+    # lib_dir: libs
+    # chakra: libs/remark-latest.min.js # For offline
     nature:
-      highlightStyle: atelier-lakeside-light
+      ratio: '16:9'
+      highlightStyle: github
       highlightLines: true
+      beforeInit: "js/macros.js"
       countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>`
 ---
+class: center, middle
+
+# With this template, it is very easy to build good looking slides
+
+## and you can centre everything for title/section/other slides
 
 ```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
-  comment = NA, dpi = 300,
-  fig.align = "center", out.width = "65%", cache = FALSE)
-library(tidyverse)
+# don't mind this code chunk, it just sets up a few things for the rest
+# it doesn't appear, because the include argument above is FALSE...
+options(htmltools.dir.version = FALSE, servr.daemon = TRUE)
+knitr::opts_chunk$set(cache=TRUE, autodep = TRUE, fig.retina = 3, message = FALSE, warning = FALSE)
+old <- ggplot2::theme_set(iheiddown::theme_iheid())
 ```
 
-```{r include = FALSE}
-sounds <- read_csv(here::here("static/labs/data", "animal_sounds_summary.csv")) %>% 
-  select(-prop_produce, -contains("understand"))
-```
-
-
-# Data for today
-
-We'll use data from [Wordbank](http://wordbank.stanford.edu)- an open source database of children's vocabulary development. The tool used to measure children's language and communicative development in this database is the [MacArthur-Bates Communicative Development Inventories (MB-CDI)](http://mb-cdi.stanford.edu). The MB-CDI is a parent-reported questionnaire.
-
-- R package [`wordbankr`](https://cran.r-project.org/web/packages/wordbankr/index.html)
-- [`wordbankr` vignette](https://cran.r-project.org/web/packages/wordbankr/vignettes/wordbankr.html)
-- More about [Wordbank](http://wordbank.stanford.edu)
-- More about [MB-CDI](http://mb-cdi.stanford.edu)
-
-
----
-# Get the data
-
-Use this code chunk to import my cleaned CSV file:
-
-```{r eval = FALSE}
-library(readr)
-sounds <- read_csv("http://bit.ly/cs631-meow")
-```
-
-
----
-class: inverse, middle, center
-
-```{r echo = FALSE}
-knitr::include_graphics("../images/r-data-types.png")
-```
-
-
-## RStudio Base R Cheatsheet
-
-https://github.com/rstudio/cheatsheets/blob/master/base-r.pdf
-
-
----
-
-## Know your data types
-
-
-* Numeric (2 subtypes)
-    - Integers (`1, 50`)
-    - Double (`1.5, 50.25`, `?double`)
-* Character (`"hello"`)
-* Factor (`grade = "A" | grade = "B"`)
-* Logical (`TRUE | FALSE`)
-
---
-
-```{r}
-typeof(sounds$age)
-typeof(sounds$sound)
-typeof(sounds$sound == "meow")
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes the bibliography
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("bib/myBibClass1.bib", check = FALSE)
+# Note: don't forget to clear the knitr cache to account for changes in the
+# bibliography.
 ```
 
 ---
-# Even better: `glimpse`
+class: middle, inverse, iheid-red
 
-```{r}
-glimpse(sounds)
-```
+## You can colour the background and add images using straightforward markdown syntax
 
+.center[
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
----
-# `sounds` (a subset)
-
-
-- `age`: child age in months
-- `sound`: a string describing a type of animal sound
-- `kids_produce`: the number of parents who answered "yes, my child produces this animal sound" 
-- `kids_respond`: the number of parents who responded to this question at all
-
-```{r echo = FALSE}
-head(sounds) %>% knitr::kable(format = "html")
-```
-
-
+James Hollway (Instructor)
+]
 
 ---
-# Data types
-
-```{r echo = FALSE}
-knitr::include_graphics("http://r4ds.had.co.nz/diagrams/data-structures-overview.png")
-```
-
-
----
-class: middle, center, inverse
-
-# ⌛️
-
-## Let's review 
-
----
-
-# Data wrangling with `dplyr` 
-
+## You can also pull images (or text) to the left or right to build columns
 
 .pull-left[
-From DataCamp Chapter 3
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-- `group_by`
-
-- `summarize`
-
-
+James Hollway (Instructor)
 ]
-
---
 
 .pull-right[
-Adding onto your arsenal of...
+I can add paragraphs of extra information...
 
-- `filter`
+or a bullet list...
 
-- `arrange`
+- one
+- two
+- three
 
-- `mutate`
+or a numbered list...
 
-- `glimpse`
-
-- `distinct`
-
-- `count`
-
-- `tally`
-
-- `pull`
-
-- `top_n`
+1. one
+1. two
+4. three
 ]
 
 ---
-class: middle, center, inverse
+class: split-four, center
 
-# 😈
+# Present your team by slicing the slide up with ninjutsu!
 
-## More on `mutate`
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Prof. Smith*
+
+Principal Investigator
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Dr. Jones*
+
+Doctoral Research Assistant
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Ms. Dupont*
+
+Research Assistant
+
+]]
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Mr. Dupond*
+
+Research Assistant
+
+]]
 
 ---
-# 3 ways to `mutate` 
-
-1. <font color="#ED1941">Create a new variable with a specific value</font>  
-
-1. Create a new variable based on other variables 
-
-1. Change an existing variable
+## You can build a step-by-step reveal
 
 --
 
-```{r}
-sounds %>% 
-  mutate(form = "WS")
-```
+By using double dashes `--` to separate lines of text or code,
+we can build a slide up gradually.
+--
 
----
-# 3 ways to `mutate`
+For example here is some more text...
+--
 
+Or here is an example of some math...
 
-1. Create a new variable with a specific value
-
-1. <font color="#ED1941">Create a new variable based on other variables</font> 
-
-1. Change an existing variable
+$$ X = \sum_i^n x_i $$
 
 --
 
-```{r}
-sounds %>% 
-  mutate(prop_produce = kids_produce / kids_respond)
+Or here is a quick plot built (and cached) when the Rmarkdown document is run:
+
+```{r, fig.height=4}
+plot(iris)
 ```
 
 ---
-# 3 ways to `mutate`
+class: highlight-last-item
 
-1. Create a new variable with a specific value
+## Add progressive lists
 
-1. Create a new variable based on other variables
+Adding the class `highlight-last-item` allows you to highlight the last element
+of a progressive list.
 
-1. <font color="#ED1941">Change an existing variable</font> 
+- First item
 
 --
 
-```{r include = FALSE}
-sounds <- sounds %>% 
-  mutate(prop_produce = kids_produce / kids_respond)
-```
+- Second item
+
+--
+
+-  For more options, see the `iheid-xaringan-style.css` file and search for
+"progressive slides". This feature was based on [this great article](https://www.garrickadenbuie.com/blog/better-progressive-xaringan/?panelset2=r-markdown3&panelset=r-markdown&panelset1=slides2).
+
+---
+class: show-only-last-code-result
+
+## Progressive code
+
+Adding the class `show-only-last-code-result` allows you to render only the last
+code result.
 
 ```{r}
-sounds %>% 
-  mutate(prop_produce = prop_produce * 100)
+runif(5)
 ```
-
----
-class: middle, center, inverse
-
-# ⌛️
-
-## Let's review some helpful functions for `mutate` + `summarize`
-
----
-class: inverse, bottom, center
-background-image: url("../images/peapod.png")
-background-size: 25%
-
-
-## Remember:
-
-## Base R + Tidyverse
-
-
----
-class: middle, center, inverse
-
-#💡
-
-## First: 
-
-## Arithmetic
-
-*especially useful for* `mutate`
-
-See:
-
-http://r4ds.had.co.nz/transform.html#mutate-funs
-
----
+--
 
 ```{r}
-?Arithmetic
+rnorm(5)
 ```
-
-```{r include = FALSE}
-math_table <- tibble::tribble(
-  ~Operator, ~Description, ~Usage,
-  "+", "addition", "x + y",
-  "-", "subtraction", "x - y",
-  "*", "multiplication", "x * y",
-  "/", "division", "x / y",
-  "^", "raised to the power of", "x ^ y",
-  "abs", "absolute value", "abs(x)",
-  "%/%", "integer division", "x %/% y",
-  "%%", "remainder after division", "x %% y"
-)
-```
-
-
-```{r echo = FALSE, results = 'asis'}
-knitr::kable(math_table, format = "html")
-```
+--
 
 ```{r}
-5 %/% 2 # 2 goes into 5 two times with...
-5 %% 2 # 1 left over
+rbinom(5, 1, 0.5)
 ```
+--
 
-
----
-class: middle, center, inverse
-
-#💡
-
-## Second: 
-
-## Summaries
-
-*especially useful for* `summarize`
-
-*even more useful after a* `group_by`
-
-See:
-
-http://r4ds.had.co.nz/transform.html#summarise-funs
-
-
-
----
-
-```{r include = FALSE}
-summary_table <- tibble::tribble(
-  ~Description, ~Usage,
-  "sum", "sum(x)",
-  "minimum", "min(x)",
-  "maximum", "max(x)",
-  "mean", "mean(x)",
-  "median", "mean(x)",
-  "standard deviation", "sd(x)",
-  "variance", "var(x)",
-  "rank", "rank(x)"
-)
-```
-
-
-```{r echo = FALSE, results = 'asis'}
-knitr::kable(summary_table, format = "html")
-```
-
-* All allow for `na.rm` argument to remove `NA` values before summarizing. The default setting for this argument is *always* `na.rm = FALSE`, so if there is one `NA` value the summary will be `NA`.
-
-* See "Maths Functions" in the RStudio Base R Cheatsheet:
-https://github.com/rstudio/cheatsheets/blob/master/base-r.pdf
-
----
-class: inverse, middle, center
-
-![](../images/alicedata-lego-colors.jpg)
-## <small>"Spent day pondering grayscale vs colourscale using `ggplot`"</small>
-
-*photo and caption courtesy [@alice-data](https://twitter.com/alice_data)*
-
----
-# Today's lab: COLORS
-
-Specifically, discrete colors.
-
-At the end of today's lab, you'll see an extra section on continuous colors. 
-
----
-## But first: `shape`
-
-```{r echo = FALSE}
-## A look at all 25 symbols
-df <- data.frame(x = 1:5, 
-                  y = rep(rev(seq(0, 24, by = 5)), each = 5), 
-                  z = 1:25)
-s <- ggplot(df, aes(x = x, y = y)) + 
-  scale_shape_identity() + 
-  geom_text(aes(label = z, y = y - 1)) + 
-  theme_void()
-s + geom_point(aes(shape = z), size = 6) 
+```{r}
+rcauchy(5)
 ```
 
 ---
-## Shapes with `color = "hotpink"`
+class: center, middle
+## Or you can highlight which section of your presentation you are up to...
 
-
-```{r echo = FALSE}
-s + geom_point(aes(shape = z), size = 6, colour = "hotpink") 
-```
-
-
----
-## Shapes with `fill = "gold"`
-
-
-```{r echo = FALSE}
-s + geom_point(aes(shape = z), size = 6, colour = "hotpink", fill = "gold") 
-```
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/NYCS-bull-trans-1.svg/1024px-NYCS-bull-trans-1.svg.png)]]
+.pull-1[.circleon[![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/NYCS-bull-trans-2.svg/1200px-NYCS-bull-trans-2.svg.png)]]
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1200px-NYCS-bull-trans-3.svg.png)]]
 
 ---
-## Default shape for `geom_point`
+class: left, middle
 
-🕵🏽 Requires spelunking into the dark corners of the `ggplot2` code on [GitHub](https://github.com/tidyverse/ggplot2/blob/master/R/geom-point.r):
+.blockquote[You can add unquotable quotes
 
-```{r eval = FALSE}
-default_aes = aes(
-    shape = 19, colour = "black", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5
-  )
-```
+~ Some person]
 
-So, the default for `geom_point(shape = 19)`! This is important to remember: this shape only "understands" the *color* aesthetic, but not the *fill* aesthetic.
+---
+class: with-logo logo-iheid
+
+## Add a logo to your presentation 
+
+.pull-left[Adding a nice looking logo to your presentation is easy. Simply 
+define the `with-logo` class alongside the class of the logo itself 
+(`logo-iheid` in this case) on every slide you want the logo to appear.
+
+See [the presentation vignette](https://github.com/jhollway/iheiddown) for a
+list of the included logos.]
 
 ---
 
-class: inverse, middle, center
+## Add Maps
 
-# 👇🏽
+```{r, fig.height=4, fig.width=10, fig.align='center', echo=TRUE}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%
+  setView(6.1435, 46.2210, zoom = 17)
+```
 
-## R Markdown:
+---
 
-https://www.markdowntutorial.com
+## Add some tables !
 
-https://andrewbtran.github.io/NICAR/2018/workflow/docs/02-rmarkdown.html
+With the addition of the excellent [`{xaringan_columns}`](https://github.com/emilyriederer/xaringan_columns) macros by Emily
+Riederer, you can create nice looking multicolumn tables using clean markdown code.
 
-https://yihui.name/tinytex/ *(install!)*
+![:col_header Header 1, Header 2, Header 3, Header 4, Header 5]
+![:col_list You can add rows with bulletted lists, item2, item3, hello, more content]
+![:col_list item4, item5, Or normal chunks of text (see below), la la la, tra la la]
+![:col_row 
+    More text,
+    More text,
+    .,
+    More text,
+    More text
+]
 
-https://github.com/rstudio/cheatsheets/blob/master/rmarkdown-2.0.pdf
+---
 
-https://rmarkdown.rstudio.com/html_document_format.html
+## More tables; kable and kableExtra packages
+.pull-left[Kable: great features for displaying simple tables!
+```{r, fig.height = 4, fig.width=10, echo=TRUE}
+knitr::kable(head(mtcars[1:4], 5), format = 'html')
+```
 
-https://rmarkdown.rstudio.com/pdf_document_format.html
+See [the knitr documentation](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)
+for additional options.
+]
+
+.pull-right[Want to get fancier? Use kableExtra!
+```{r, fig.height = 2, fig.width=2, echo=TRUE}
+head(mtcars[1:4], 3) %>% 
+  kableExtra::kbl()%>%
+  kableExtra::kable_material(c("hover", "striped", "condensed"), full_width = F)
+```
+
+See [the kableExtra documentation](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+for additional options.
+]
+
+---
+
+## Interactive tables; DT package
+
+```{r, fig.height = 4, fig.width=10, echo=TRUE}
+library(DT)
+DT::datatable(head(mtcars, 10),
+  fillContainer = FALSE, options = list(pageLength = 4))
+```
+
+See the [DT package documentation](https://rstudio.github.io/DT/) for the
+additional options.
+
+---
+class: animate__animated, animate__slideInRight
+
+## Add slide transitions to  your slides
+
+Simply add the class `animate__animated` and the class corresponding to the
+desired animation such as `animate__slideInRight`, et voilà!
+
+For a complete list of the available animations and further options, visit
+[animate.style](https://animate.style/).
+
+.center[![Animation GIF](https://i.giphy.com/media/Oo6GWyiWEDgtO/giphy.webp)]
+
+---
+background-image: url(https://media1.giphy.com/media/xT0BKiK5sOCVdBUhiM/giphy.gif)
+background-size: contain
+
+# And finally, you can add gifs!
+
+---
+class: inverse iheid-red center middle with-logo logo-iheid_BW
+
+Made with `{iheiddown}`, the R-package for IHEID publications
+`r Cite(myBib, "iheiddown")`.
+
+---
+
+# References
+
+```{r refs, echo=FALSE, results="asis"}
+RefManageR::PrintBibliography(myBib)
+```
