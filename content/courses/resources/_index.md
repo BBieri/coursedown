@@ -1,14 +1,14 @@
 ---
-date: "2018-09-09T00:00:00Z"
+date: "2022-01-09T00:00:00Z"
 draft: false
-lastmod: "2018-09-09T00:00:00Z"
+lastmod: "2022-01-09T00:00:00Z"
 linktitle: Resources
 menu:
   example:
     name: Overview
     weight: 1
-summary: Learn how to use Academic's docs layout for publishing online courses, software
-  documentation, and tutorials.
+summary: An example collection of additional resources borrowed from Alison
+  Hill's template.
 title: Overview
 toc: true
 # Do not modify the type

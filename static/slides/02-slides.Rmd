@@ -1,355 +1,326 @@
 ---
-title: "Lab 02: CS631"
-subtitle: "Working in the Tidyverse"
-author: "Alison Hill"
+title: "Title"
+subtitle: "Subtitle"
+author: "<large>Author Name</large>"
+# institute: "<small>Graduate Institute Geneva</small>" # uncomment to include
+# date: "`r format(Sys.Date(), '%A, %e %B, %Y')`" # uncomment to include
 output:
   xaringan::moon_reader:
-    css: ["default", "css/ohsu.css", "css/ohsu-fonts.css"]
-    lib_dir: libs
+    css: 
+      - "default"
+      - "css/iheid-xaringan-style.css" # You need to change this file path to css/...
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      - "ninjutsu"
+    chakra: "https://remarkjs.com/downloads/remark-latest.min.js"
+    # if you want to work offline, run the following command...
+    # xaringan::summon_remark()
+    # ...and then comment out lines 10-13 and uncomment lines 14-15:
+    # lib_dir: libs
+    # chakra: libs/remark-latest.min.js # For offline
     nature:
-      highlightStyle: atelier-lakeside-light
+      ratio: '16:9'
+      highlightStyle: github
       highlightLines: true
+      beforeInit: "js/macros.js"
       countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>`
 ---
+class: center, middle
 
+# With this template, it is very easy to build good looking slides
 
+## and you can centre everything for title/section/other slides
 
 ```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
-  comment = NA, dpi = 300,
-  fig.align = "center", out.width = "80%", cache = FALSE)
-library(tidyverse)
+# don't mind this code chunk, it just sets up a few things for the rest
+# it doesn't appear, because the include argument above is FALSE...
+options(htmltools.dir.version = FALSE, servr.daemon = TRUE)
+knitr::opts_chunk$set(cache=TRUE, autodep = TRUE, fig.retina = 3, message = FALSE, warning = FALSE)
+old <- ggplot2::theme_set(iheiddown::theme_iheid())
 ```
 
-# Tidyverse basics
-
-In David Robinson's DataCamp course you learned:
-
-- `<-` (variable assignment)
-- `%>%` (then...)
-- `dplyr`, `ggplot2` (packages)
-  - `install.packages("dplyr")` (1x per machine)
-  - `library(dplyr)` (1x per work session)
-
----
-class: center, middle, inverse
-
-# 📇
-
-## Let's review
-
----
-# Data for today
-
-We'll use data from the Museum of Modern Art (MoMA)
-
-- Publicly available on [GitHub](https://github.com/MuseumofModernArt/collection)
-- As analyzed by [fivethirtyeight.com](https://fivethirtyeight.com/features/a-nerds-guide-to-the-2229-paintings-at-moma/)
-- And by [others](https://medium.com/@foe/here-s-a-roundup-of-how-people-have-used-our-data-so-far-80862e4ce220)
-
----
-# Get the data
-
-Use this code chunk to import my cleaned CSV file:
-
-```{r}
-library(readr)
-moma <- read_csv("http://bit.ly/cs631-moma")
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes the bibliography
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("bib/myBibClass1.bib", check = FALSE)
+# Note: don't forget to clear the knitr cache to account for changes in the
+# bibliography.
 ```
 
+---
+class: middle, inverse, iheid-red
+
+## You can colour the background and add images using straightforward markdown syntax
+
+.center[
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
+
+James Hollway (Instructor)
+]
 
 ---
-
-# Data wrangling so far
-
-All functions from `dplyr` package
+## You can also pull images (or text) to the left or right to build columns
 
 .pull-left[
-From DataCamp Chapter 1
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-- print a tibble
-
-- `filter`
-
-- `arrange`
-
-- `mutate`
+James Hollway (Instructor)
 ]
-
---
 
 .pull-right[
-From Lab 01
+I can add paragraphs of extra information...
 
+or a bullet list...
 
-- `glimpse`
+- one
+- two
+- three
 
-- `distinct`
+or a numbered list...
 
-- `count`
+1. one
+1. two
+4. three
 ]
 
 ---
-class: middle, center, inverse
+class: split-four, center
 
-![](../images/rladylego-pipe.jpg)
+# Present your team by slicing the slide up with ninjutsu!
 
-## Plus: `%>%`
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
 
-*image courtesy [@LegoRLady](https://twitter.com/LEGO_RLady/status/986661916855754752)*
+*Prof. Smith*
+
+Principal Investigator
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Dr. Jones*
+
+Doctoral Research Assistant
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Ms. Dupont*
+
+Research Assistant
+
+]]
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Mr. Dupond*
+
+Research Assistant
+
+]]
 
 ---
-class: middle, center, inverse
+## You can build a step-by-step reveal
 
-# ⌛️
+--
 
-## Let's review some helpful functions for `filter`
+By using double dashes `--` to separate lines of text or code,
+we can build a slide up gradually.
+--
 
----
-class: inverse, bottom, center
-background-image: url("../images/peapod.png")
-background-size: 25%
+For example here is some more text...
+--
 
+Or here is an example of some math...
 
-## Base R + Tidyverse
+$$ X = \sum_i^n x_i $$
 
----
-class: middle, center, inverse
+--
 
-#💡
+Or here is a quick plot built (and cached) when the Rmarkdown document is run:
 
-## First: 
-
-## Logical Operators
-
-
+```{r, fig.height=4}
+plot(iris)
+```
 
 ---
+class: highlight-last-item
 
+## Add progressive lists
+
+Adding the class `highlight-last-item` allows you to highlight the last element
+of a progressive list.
+
+- First item
+
+--
+
+- Second item
+
+--
+
+-  For more options, see the `iheid-xaringan-style.css` file and search for
+"progressive slides". This feature was based on [this great article](https://www.garrickadenbuie.com/blog/better-progressive-xaringan/?panelset2=r-markdown3&panelset=r-markdown&panelset1=slides2).
+
+---
+class: show-only-last-code-result
+
+## Progressive code
+
+Adding the class `show-only-last-code-result` allows you to render only the last
+code result.
 
 ```{r}
-?base::Logic
+runif(5)
 ```
-
-
-```{r include = FALSE}
-logic_table <- tibble::tribble(
-  ~Operator, ~Description, ~Usage,
-  "&", "and", "x & y",
-  "|", "or", "x | y",
-  "xor", "exactly x or y", "xor(x, y)",
-  "!", "not", "!x"
-)
-```
-
-
-```{r echo = FALSE, results = 'asis'}
-knitr::kable(logic_table, format = "html")
-```
-
----
-
-Logical or (`|`) is inclusive, so `x | y` really means: 
-
-* x or 
-* y or 
-* both x & y
-
-Exclusive or (`xor`) is exclusive, so `xor(x, y)` really means: 
-
-* x or
-* y...
-* but not both x & y
+--
 
 ```{r}
-x <- c(0, 1, 0, 1)
-y <- c(0, 0, 1, 1)
-boolean_or <- x | y
-exclusive_or <- xor(x, y)
-cbind(x, y, boolean_or, exclusive_or)
+rnorm(5)
 ```
+--
 
----
-class: middle, center, inverse
-
-#💡
-
-## Second: 
-
-## Comparisons
-
----
 ```{r}
-?Comparison
+rbinom(5, 1, 0.5)
 ```
+--
 
-```{r include = FALSE}
-comp_table <- tibble::tribble(
-  ~Operator, ~Description, ~Usage,
-  "<", "less than", "x < y",
-  "<=", "less than or equal to", "x <= y",
-  ">", "greater than", "x > y",
-  ">=", "greater than or equal to", "x >= y",
-  "==", "exactly equal to", "x == y",
-  "!=", "not equal to", "x != y",
-  "%in%", "group membership*", "x %in% y",
-  "is.na", "is missing", "is.na(x)",
-  "!is.na", "is not missing", "!is.na(x)"
-)
+```{r}
+rcauchy(5)
 ```
-
-
-```{r echo = FALSE, results = 'asis'}
-knitr::kable(comp_table, format = "html")
-```
-
-*(shortcut to using `|` repeatedly with `==`)
 
 ---
-## Lab 02: Challenge 1 (`dplyr`)
+class: center, middle
+## Or you can highlight which section of your presentation you are up to...
 
-1. How many paintings (rows) are in `moma`? How many variables (columns) are in `moma`?
-1. What is the first painting acquired by MoMA? Which year? Which artist? What title?
-    - *Hint: you may want to look into `select` + `arrange`*
-1. What is the oldest painting in the collection? Which year? Which artist? What title? *(see above hint)*
-1. How many distinct artists are there?
-1. Which artist has the most paintings in the collection? How many paintings are by this artist?
-1. How many paintings are by male vs female artists?
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/NYCS-bull-trans-1.svg/1024px-NYCS-bull-trans-1.svg.png)]]
+.pull-1[.circleon[![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/NYCS-bull-trans-2.svg/1200px-NYCS-bull-trans-2.svg.png)]]
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1200px-NYCS-bull-trans-3.svg.png)]]
 
-If you want more:
-1. How many artists of each gender are there?
-1. In what year were the most paintings acquired? Created?
-1. In what year was the first painting by a (solo) female artist acquired? When was that painting created? Which artist? What title? 
+---
+class: left, middle
 
+.blockquote[You can add unquotable quotes
 
+~ Some person]
+
+---
+class: with-logo logo-iheid
+
+## Add a logo to your presentation 
+
+.pull-left[Adding a nice looking logo to your presentation is easy. Simply 
+define the `with-logo` class alongside the class of the logo itself 
+(`logo-iheid` in this case) on every slide you want the logo to appear.
+
+See [the presentation vignette](https://github.com/jhollway/iheiddown) for a
+list of the included logos.]
 
 ---
 
-# From DataCamp Chapter 2
+## Add Maps
 
-all `ggplot2`
-
-- `aes(x = , y = )` (aesthetics)
-- `aes(x = , y = , color = )` (add color)
-- `aes(x = , y = , size = )` (add size)
-- `+ facet_wrap(~ )` (facetting)
-
----
-# Old School (Challenge 2)<sup>1</sup>
-
-- Sketch the graphics below on paper, where the `x`-axis is variable `year_created` and the `y`-axis is variable `year_acquired`
-
-```{r echo=FALSE}
-moma_ex <-
-  data_frame(
-    painted = c(1980, 1990, 2000, 2010),
-    acquired = c(1985, 1995, 2005, 2015),
-    area = c(3, 2, 1, 2),
-    gender = c("male", "male", "female", "female")
-  )
-moma_ex
+```{r, fig.height=4, fig.width=10, fig.align='center', echo=TRUE}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%
+  setView(6.1435, 46.2210, zoom = 17)
 ```
 
-<!-- Copy to chalkboard/whiteboard -->
+---
 
-1. A scatter plot
-1. A scatter plot where the `color` of the points corresponds to `gender`
-1. A scatter plot where the `size` of the points corresponds to `area`
+## Add some tables !
 
-.footnote[
-[1] Shamelessly borrowed with much appreciation to [Chester Ismay](https://ismayc.github.io/talks/ness-infer/slide_deck.html)
+With the addition of the excellent [`{xaringan_columns}`](https://github.com/emilyriederer/xaringan_columns) macros by Emily
+Riederer, you can create nice looking multicolumn tables using clean markdown code.
+
+![:col_header Header 1, Header 2, Header 3, Header 4, Header 5]
+![:col_list You can add rows with bulletted lists, item2, item3, hello, more content]
+![:col_list item4, item5, Or normal chunks of text (see below), la la la, tra la la]
+![:col_row 
+    More text,
+    More text,
+    .,
+    More text,
+    More text
 ]
 
 ---
 
-# 1. A scatterplot
-
-```{r, eval=FALSE}
-library(ggplot2)
-ggplot(moma_ex, aes(painted, acquired)) + 
-  geom_point()
-```
---
-
-```{r, echo=FALSE, fig.height=4.4}
-ggplot(moma_ex, aes(painted, acquired)) + 
-  geom_point()
+## More tables; kable and kableExtra packages
+.pull-left[Kable: great features for displaying simple tables!
+```{r, fig.height = 4, fig.width=10, echo=TRUE}
+knitr::kable(head(mtcars[1:4], 5), format = 'html')
 ```
 
+See [the knitr documentation](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)
+for additional options.
+]
+
+.pull-right[Want to get fancier? Use kableExtra!
+```{r, fig.height = 2, fig.width=2, echo=TRUE}
+head(mtcars[1:4], 3) %>% 
+  kableExtra::kbl()%>%
+  kableExtra::kable_material(c("hover", "striped", "condensed"), full_width = F)
+```
+
+See [the kableExtra documentation](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+for additional options.
+]
 
 ---
 
+## Interactive tables; DT package
 
-# 2. `color` points by `gender`
-
-```{r, eval=FALSE}
-library(ggplot2)
-ggplot(moma_ex, aes(painted, acquired, color = gender)) + 
-  geom_point()
-```
---
-
-```{r, echo=FALSE, fig.height=4.4}
-ggplot(moma_ex, aes(painted, acquired, color = gender)) + 
-  geom_point()
+```{r, fig.height = 4, fig.width=10, echo=TRUE}
+library(DT)
+DT::datatable(head(mtcars, 10),
+  fillContainer = FALSE, options = list(pageLength = 4))
 ```
 
+See the [DT package documentation](https://rstudio.github.io/DT/) for the
+additional options.
+
+---
+class: animate__animated, animate__slideInRight
+
+## Add slide transitions to  your slides
+
+Simply add the class `animate__animated` and the class corresponding to the
+desired animation such as `animate__slideInRight`, et voilà!
+
+For a complete list of the available animations and further options, visit
+[animate.style](https://animate.style/).
+
+.center[![Animation GIF](https://i.giphy.com/media/Oo6GWyiWEDgtO/giphy.webp)]
+
+---
+background-image: url(https://media1.giphy.com/media/xT0BKiK5sOCVdBUhiM/giphy.gif)
+background-size: contain
+
+# And finally, you can add gifs!
+
+---
+class: inverse iheid-red center middle with-logo logo-iheid_BW
+
+Made with `{iheiddown}`, the R-package for IHEID publications
+`r Cite(myBib, "iheiddown")`.
 
 ---
 
-# 3. `size` points by `area`
+# References
 
-```{r, eval=FALSE}
-library(ggplot2)
-ggplot(moma_ex, aes(painted, acquired, size = area)) + 
-  geom_point()
+```{r refs, echo=FALSE, results="asis"}
+RefManageR::PrintBibliography(myBib)
 ```
---
-
-```{r, echo=FALSE, fig.height=4.4}
-ggplot(moma_ex, aes(painted, acquired, size = area)) + 
-  geom_point()
-```
-
----
-
-# [The Five-Named Graphs](http://moderndive.com/3-viz.html#FiveNG)
-
-
-- Scatterplot: `geom_point()`
-- Line graph: `geom_line()`
-- Histogram: `geom_histogram()`
-- Boxplot: `geom_boxplot()`
-- Bar graph: `geom_bar()` or `geom_col` (see [Lab 01](../01-eda_hot_dogs.html))
-
-
-
----
-# Lab 02: Plotting Challenges
-
-Challenges 3-5 are in the [Lab 02 code-through](../02-moma.html)!
-
-https://apreshill.github.io/data-vis-labs-2018/02-moma.html
-
----
-class: inverse, middle, center
-
-
-# 📊
-
-## Basics of `ggplot2` and `dplyr`:
-
-[R4DS `ggplot2` chapter](http://r4ds.had.co.nz/data-visualisation.html)
-
-[ModernDive `ggplot2` chapter](http://moderndive.com/3-viz.html)
-
-[RStudio `ggplot2` Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
-
-[R4DS `dplyr` chapter](http://r4ds.had.co.nz/transform.html)
-
-[ModernDive `dplyr` chapter](http://moderndive.com/5-wrangling.html)
-
-[RStudio `dplyr` Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
-
-

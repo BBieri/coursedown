@@ -1,906 +1,445 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Lab 01: CS631</title>
+    <title>Title</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Alison Hill" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/ohsu.css" type="text/css" />
-    <link rel="stylesheet" href="css/ohsu-fonts.css" type="text/css" />
+    <meta name="author" content="Author Name" />
+    <script src="01-slides_files/header-attrs/header-attrs.js"></script>
+    <link href="01-slides_files/remark-css/default.css" rel="stylesheet" />
+    <link href="01-slides_files/remark-css/ninjutsu.css" rel="stylesheet" />
+    <script src="01-slides_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="01-slides_files/jquery/jquery-3.6.0.min.js"></script>
+    <link href="01-slides_files/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="01-slides_files/leaflet/leaflet.js"></script>
+    <link href="01-slides_files/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="01-slides_files/proj4/proj4.min.js"></script>
+    <script src="01-slides_files/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="01-slides_files/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="01-slides_files/leaflet-binding/leaflet.js"></script>
+    <script src="01-slides_files/kePrint/kePrint.js"></script>
+    <link href="01-slides_files/lightable/lightable.css" rel="stylesheet" />
+    <link href="01-slides_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="01-slides_files/datatables-binding/datatables.js"></script>
+    <link href="01-slides_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="01-slides_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="01-slides_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="01-slides_files/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="01-slides_files/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/iheid-xaringan-style.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Lab 01: CS631
-## Working in R
-### Alison Hill
+# Title
+## Subtitle
+### <large>Author Name</large>
 
 ---
 
+class: center, middle
 
+# With this template, it is very easy to build good looking slides
 
-
-## R Basics
-
---
-
-* R is an interpreter (`&gt;`)
-
---
-
-* Name objects in R (`i_like_snake_case &lt;- `)
-
---
-
-* Know your object types (`typeof()`)
-
---
-
-* Case matters (`my_names != My_names`)
-
-
---
-
-* Use comments! (`# use the hashtag symbol`) 
-
---
-
-* Functions (`fun`!)
-
---
-
-* Use packages (*"install once per machine, load once per R session"*)
-
---
-
-* Use the `%&gt;%` (*"dataframe first, dataframe once"*)
+## and you can centre everything for title/section/other slides
 
 
 
 
 
 ---
+class: middle, inverse, iheid-red
 
-## R is an interpreter `&gt;`
+## You can colour the background and add images using straightforward markdown syntax
 
---
+.center[
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-You enter commands line-by-line (as opposed to compiled languages).
-
---
-
-* The `&gt;` means R is a ready for a command
-
---
-
-* The `+` means your last command isn't complete
-
---
-
-    - If you get stuck with a `+` use your escape key!
-
+James Hollway (Instructor)
+]
 
 ---
-class: center, middle, inverse
-
-# 🐍
-
-## Name Objects in R
-
-## `i_like_snake_case &lt;-`
-
---
-
-RStudio Keyboard Shortcuts:
-
-OSX: `Option` + `-`
-
-Else: `Alt` + `-`
-
-*(the + means and, not the + key)*
-
----
-
-## Name your own objects
-
-
-
-```r
-us &lt;- c("Steven", "Jackie", "Alison") # combine strings
-us
-```
-
-```
-[1] "Steven" "Jackie" "Alison"
-```
-
---
-
-
-```r
-num_labs &lt;- c(1:10) # combine numbers
-num_labs
-```
-
-```
- [1]  1  2  3  4  5  6  7  8  9 10
-```
-
---
-
-
-```r
-mood &lt;- rep("yippee", length(num_labs)) # replicate 10 times
-mood
-```
-
-```
- [1] "yippee" "yippee" "yippee" "yippee" "yippee" "yippee" "yippee" "yippee"
- [9] "yippee" "yippee"
-```
-
----
-
-## Re-name others' objects
-
-
-
-```r
-my_alpha &lt;- letters # built-in, no package needed
-my_alpha
-```
-
-```
- [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
-[20] "t" "u" "v" "w" "x" "y" "z"
-```
-
---
-
-
-```r
-my_names &lt;- babynames # from the babynames package
-my_names
-```
-
-```
-# A tibble: 1,924,665 x 5
-    year sex   name          n   prop
-   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;
- 1  1880 F     Mary       7065 0.0724
- 2  1880 F     Anna       2604 0.0267
- 3  1880 F     Emma       2003 0.0205
- 4  1880 F     Elizabeth  1939 0.0199
- 5  1880 F     Minnie     1746 0.0179
- 6  1880 F     Margaret   1578 0.0162
- 7  1880 F     Ida        1472 0.0151
- 8  1880 F     Alice      1414 0.0145
- 9  1880 F     Bertha     1320 0.0135
-10  1880 F     Sarah      1288 0.0132
-# ... with 1,924,655 more rows
-```
-
-
----
-
-## What to name objects?
-
-
-```r
-?make.names
-```
-
+## You can also pull images (or text) to the left or right to build columns
 
 .pull-left[
-Object names cannot:
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-- Start with a number
-- Contain a space
-- Contain ["reserved" words](http://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html)
+James Hollway (Instructor)
 ]
-
---
 
 .pull-right[
-Object names must:
+I can add paragraphs of extra information...
 
-- Start with a letter
-- Contain letters, numbers, `_` and `.`
+or a bullet list...
+
+- one
+- two
+- three
+
+or a numbered list...
+
+1. one
+1. two
+4. three
+]
+
+---
+class: split-four, center
+
+# Present your team by slicing the slide up with ninjutsu!
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Prof. Smith*
+
+Principal Investigator
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Dr. Jones*
+
+Doctoral Research Assistant
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Ms. Dupont*
+
+Research Assistant
+
+]]
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Mr. Dupond*
+
+Research Assistant
+
+]]
+
+---
+## You can build a step-by-step reveal
+
+--
+
+By using double dashes `--` to separate lines of text or code,
+we can build a slide up gradually.
+--
+
+For example here is some more text...
+--
+
+Or here is an example of some math...
+
+$$ X = \sum_i^n x_i $$
+
+--
+
+Or here is a quick plot built (and cached) when the Rmarkdown document is run:
+
+
+```r
+plot(iris)
+```
+
+&lt;img src="01-slides_files/figure-html/unnamed-chunk-1-1.png" width="504" /&gt;
+
+---
+class: highlight-last-item
+
+## Add progressive lists
+
+Adding the class `highlight-last-item` allows you to highlight the last element
+of a progressive list.
+
+- First item
+
+--
+
+- Second item
+
+--
+
+-  For more options, see the `iheid-xaringan-style.css` file and search for
+"progressive slides". This feature was based on [this great article](https://www.garrickadenbuie.com/blog/better-progressive-xaringan/?panelset2=r-markdown3&amp;panelset=r-markdown&amp;panelset1=slides2).
+
+---
+class: show-only-last-code-result
+
+## Progressive code
+
+Adding the class `show-only-last-code-result` allows you to render only the last
+code result.
+
+
+```r
+runif(5)
+```
+
+```
+## [1] 0.6031355 0.5695131 0.2381534 0.9344525 0.1947252
+```
+--
+
+
+```r
+rnorm(5)
+```
+
+```
+## [1]  1.00804613  0.35288024 -0.17102374  1.01680751  0.07311153
+```
+--
+
+
+```r
+rbinom(5, 1, 0.5)
+```
+
+```
+## [1] 0 0 1 0 1
+```
+--
+
+
+```r
+rcauchy(5)
+```
+
+```
+## [1]  0.005894122  1.689578712  1.176994377  0.580218931 -1.177479086
+```
+
+---
+class: center, middle
+## Or you can highlight which section of your presentation you are up to...
+
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/NYCS-bull-trans-1.svg/1024px-NYCS-bull-trans-1.svg.png)]]
+.pull-1[.circleon[![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/NYCS-bull-trans-2.svg/1200px-NYCS-bull-trans-2.svg.png)]]
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1200px-NYCS-bull-trans-3.svg.png)]]
+
+---
+class: left, middle
+
+.blockquote[You can add unquotable quotes
+
+~ Some person]
+
+---
+class: with-logo logo-iheid
+
+## Add a logo to your presentation 
+
+.pull-left[Adding a nice looking logo to your presentation is easy. Simply 
+define the `with-logo` class alongside the class of the logo itself 
+(`logo-iheid` in this case) on every slide you want the logo to appear.
+
+See [the presentation vignette](https://github.com/jhollway/iheiddown) for a
+list of the included logos.]
+
+---
+
+## Add Maps
+
+
+```r
+library(leaflet)
+leaflet() %&gt;%
+  addTiles() %&gt;%
+  setView(6.1435, 46.2210, zoom = 17)
+```
+
+<div id="htmlwidget-66408a87e4339b36c079" style="width:720px;height:288px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-66408a87e4339b36c079">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[46.221,6.1435],17,[]]},"evals":[],"jsHooks":[]}</script>
+
+---
+
+## Add some tables !
+
+With the addition of the excellent [`{xaringan_columns}`](https://github.com/emilyriederer/xaringan_columns) macros by Emily
+Riederer, you can create nice looking multicolumn tables using clean markdown code.
+
+![:col_header Header 1, Header 2, Header 3, Header 4, Header 5]
+![:col_list You can add rows with bulletted lists, item2, item3, hello, more content]
+![:col_list item4, item5, Or normal chunks of text (see below), la la la, tra la la]
+![:col_row 
+    More text,
+    More text,
+    .,
+    More text,
+    More text
 ]
 
 ---
 
-## Adopt a consistent naming style
-
-
-```r
-i_use_snake_case # recommended
-otherPeopleUseCamelCase
-some.people.use.periods
-And_aFew.People_RENOUNCEconvention
-```
-
-From: http://r4ds.had.co.nz/workflow-basics.html#whats-in-a-name
-
-Read more:
-http://style.tidyverse.org/syntax.html#object-names
-
-
-
----
-class: center, middle, inverse
-
-
-# 🔦
-
-## Know Your Data Types
-
-
-## `typeof()`
-
----
-
-## Know your data types
-
-
-* Numeric (2 subtypes)
-    - Integers (`1, 50`)
-    - Double (`1.5, 50.25`, `?double`)
-* Character (`"hello"`)
-* Factor (`grade = "A" | grade = "B"`)
-* Logical (`TRUE | FALSE`)
-
---
-
+## More tables; kable and kableExtra packages
+.pull-left[Kable: great features for displaying simple tables!
 
 ```r
-typeof(num_labs) # numeric
+knitr::kable(head(mtcars[1:4], 5), format = 'html')
 ```
 
-```
-[1] "integer"
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mpg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; disp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; hp &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 Wag &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Datsun 710 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hornet 4 Drive &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 258 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hornet Sportabout &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 360 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 175 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+See [the knitr documentation](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)
+for additional options.
+]
+
+.pull-right[Want to get fancier? Use kableExtra!
 
 ```r
-typeof(mood) # "yippee" is a character
+head(mtcars[1:4], 3) %&gt;% 
+  kableExtra::kbl()%&gt;%
+  kableExtra::kable_material(c("hover", "striped", "condensed"), full_width = F)
 ```
 
-```
-[1] "character"
-```
+&lt;table class=" lightable-material lightable-striped lightable-hover" style='font-family: "Source Sans Pro", helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mpg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; disp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; hp &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 Wag &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Datsun 710 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
-```r
-typeof(mood == "yippee") # is mood equal to "yippee"- T or F?
-```
-
-```
-[1] "logical"
-```
-
-
-
----
-
-## Characters can be deceiving
-
-
-
-
-```r
-my_things &lt;- c(num_labs, mood)
-my_things
-```
-
-```
- [1] "1"      "2"      "3"      "4"      "5"      "6"      "7"      "8"     
- [9] "9"      "10"     "yippee" "yippee" "yippee" "yippee" "yippee" "yippee"
-[17] "yippee" "yippee" "yippee" "yippee"
-```
-
---
-
-
-```r
-typeof(my_things) 
-```
-
-```
-[1] "character"
-```
-
-
----
-
-## `NA` is special
-
-
-
-```r
-num_labs &lt;- c(num_labs, NA) 
-```
-
---
-
-
-```r
-typeof(num_labs)
-```
-
-```
-[1] "integer"
-```
-
---
-
-
-```r
-num_labs*3
-```
-
-```
- [1]  3  6  9 12 15 18 21 24 27 30 NA
-```
-
-```r
-max(num_labs)
-```
-
-```
-[1] NA
-```
-
-```r
-max(num_labs, na.rm = TRUE)
-```
-
-```
-[1] 10
-```
-
-
-
----
-class: center, middle, inverse
-
-
-## Case matters
-
-## `my_names != My_names`
+See [the kableExtra documentation](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+for additional options.
+]
 
 ---
 
-## Case matters
-
-This works:
+## Interactive tables; DT package
 
 
 ```r
-glimpse(babynames)
+library(DT)
+DT::datatable(head(mtcars, 10),
+  fillContainer = FALSE, options = list(pageLength = 4))
 ```
 
-```
-Rows: 1,924,665
-Columns: 5
-$ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880,~
-$ sex  &lt;chr&gt; "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", ~
-$ name &lt;chr&gt; "Mary", "Anna", "Emma", "Elizabeth", "Minnie", "Margaret", "Ida",~
-$ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 1288, 1258,~
-$ prop &lt;dbl&gt; 0.07238359, 0.02667896, 0.02052149, 0.01986579, 0.01788843, 0.016~
-```
+<div id="htmlwidget-9f2d4389e0b2a6020d7f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9f2d4389e0b2a6020d7f">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["Mazda RX4","Mazda RX4 Wag","Datsun 710","Hornet 4 Drive","Hornet Sportabout","Valiant","Duster 360","Merc 240D","Merc 230","Merc 280"],[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2],[6,6,4,6,8,6,8,4,4,6],[160,160,108,258,360,225,360,146.7,140.8,167.6],[110,110,93,110,175,105,245,62,95,123],[3.9,3.9,3.85,3.08,3.15,2.76,3.21,3.69,3.92,3.92],[2.62,2.875,2.32,3.215,3.44,3.46,3.57,3.19,3.15,3.44],[16.46,17.02,18.61,19.44,17.02,20.22,15.84,20,22.9,18.3],[0,0,1,1,0,1,0,1,1,1],[1,1,1,0,0,0,0,0,0,0],[4,4,4,3,3,3,3,4,4,4],[4,4,1,1,2,1,4,2,2,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mpg<\/th>\n      <th>cyl<\/th>\n      <th>disp<\/th>\n      <th>hp<\/th>\n      <th>drat<\/th>\n      <th>wt<\/th>\n      <th>qsec<\/th>\n      <th>vs<\/th>\n      <th>am<\/th>\n      <th>gear<\/th>\n      <th>carb<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
---
-
-These do not:
-
-
-```r
-Glimpse(babynames) # no function
-```
-
-```
-Error in Glimpse(babynames): could not find function "Glimpse"
-```
-
-```r
-glimpse(Babynames) # no data 
-```
-
-```
-Error in glimpse(Babynames): object 'Babynames' not found
-```
-
+See the [DT package documentation](https://rstudio.github.io/DT/) for the
+additional options.
 
 ---
-class: center, middle, inverse
+class: animate__animated, animate__slideInRight
 
-# 📢
+## Add slide transitions to  your slides
 
-## Comments
+Simply add the class `animate__animated` and the class corresponding to the
+desired animation such as `animate__slideInRight`, et voilà!
 
-## `# go here`
+For a complete list of the available animations and further options, visit
+[animate.style](https://animate.style/).
+
+.center[![Animation GIF](https://i.giphy.com/media/Oo6GWyiWEDgtO/giphy.webp)]
+
+---
+background-image: url(https://media1.giphy.com/media/xT0BKiK5sOCVdBUhiM/giphy.gif)
+background-size: contain
+
+# And finally, you can add gifs!
+
+---
+class: inverse iheid-red center middle with-logo logo-iheid_BW
+
+Made with `{iheiddown}`, the R-package for IHEID publications
+(Hollway, 2021).
 
 ---
 
-## Text behind a `#` is a comment
-
-
-```r
-num_labs + 2 # add 2 here
-```
-
-```
- [1]  3  4  5  6  7  8  9 10 11 12 NA
-```
-
-```r
-num_weeks &lt;- num_labs + 2 # save as new object
-```
-
---
-
-
-```r
-# I can say anything I want here...
-num_weeks
-```
-
-```
- [1]  3  4  5  6  7  8  9 10 11 12 NA
-```
-
---
-
-
-```r
-but not here
-```
-
-```
-Error: &lt;text&gt;:1:5: unexpected symbol
-1: but not
-        ^
-```
-
----
-class: center, middle, inverse
-
-# 🍰
-
-## Functions
-
-
-
-
-
-
----
-background-image: url("../images/Slide06.png")
-background-size: cover
-
----
-background-image: url("../images/Slide07.png")
-background-size: cover
-
----
-background-image: url("../images/Slide08.png")
-background-size: cover
-
----
-background-image: url("../images/Slide10.png")
-background-size: cover
-
-
-
-
-
----
-
-## Functions 
-
-Sometimes abbreviated `funs` in documentation, which is a little ironic 😉.
-
-Functions can come from:
-
-- base R (these functions are "built in")
-- packages
-- you
-
----
-class: middle
-
-# Base R Functions
-
-
-```r
-seq(1, 12, 1) # base R
-```
-
-```
- [1]  1  2  3  4  5  6  7  8  9 10 11 12
-```
-
----
-class: middle
-
-# Functions from Packages
-
-
-```r
-babynames %&gt;% count(sex) # count is from dplyr
-```
-
-```
-# A tibble: 2 x 2
-  sex         n
-  &lt;chr&gt;   &lt;int&gt;
-1 F     1138293
-2 M      786372
-```
-
----
-class: middle
-
-# Roll Your Own Functions
-
-
-```r
-greet &lt;- function(name) {
-  glue::glue("Welcome to CS631, {name}!")
-}
-greet("Sloane")
-```
-
-```
-Welcome to CS631, Sloane!
-```
-
-
-
-
-
-
----
-
-# Function help
-
-
-```r
-?seq
-?count
-```
-
-
-
-Pay attention to: 
-
---
-
-* Usage *(recipe)*
-
---
-
-* Arguments *(ingredients)*
-
---
-
-* Examples 
-
-
---
-
-Read more: 
-- http://r4ds.had.co.nz/workflow-basics.html#calling-functions
-- http://socviz.co/appendix.html#a-little-more-about-r
-- http://stat545.com/block011_write-your-own-function-01.html
-- http://stat545.com/block011_write-your-own-function-02.html
-- http://stat545.com/block011_write-your-own-function-03.html
-
-
-
----
-class: center, middle, inverse
-
-# 📦
-
-## Packages
-
-
-
-*"install once per machine, load once per R session"*
-
----
-
-## Packages! 
-
-*Install once* per machine
-
-
-```r
-install.packages("dplyr")
-```
-
---
-
-*Load once* per R work session
-
-
-```r
-library(dplyr)
-```
-
---
-
-*also: quotes matter, sorry*
-
----
-class: inverse, middle, center
-
-&lt;img src="https://www.tidyverse.org/images/hex-tidyverse.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-## The `tidyverse` package ecosystem
-
-https://www.tidyverse.org
-
----
-class: inverse, middle, center
-
-
-
-&lt;img src="https://www.tidyverse.org/images/hex-tidyverse.png" width="25%" style="display: block; margin: auto;" /&gt;
-
-
-
-*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."*
-
-
-
-
-```r
-install.packages("tidyverse")
-library(tidyverse)
-```
-
-See packages included here: https://www.tidyverse.org/packages/
-
-
----
-class: center, middle, inverse
-
-# `%&gt;%`
-
-## The pipe
-
-*"dataframe first, dataframe once"*
-
---
-
-
-```r
-library(dplyr)
-```
-
-
---
-
-RStudio Keyboard Shortcuts:
-
-OSX: `CMD` + `SHIFT` + `M`
-
-Else: `CTRL` + `SHIFT` + `M`
-
----
-class: middle
-
-*Nesting* a dataframe inside a function is hard to read.
-
-
-```r
-slice(babynames, 1)
-```
-
-```
-# A tibble: 1 x 5
-   year sex   name      n   prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1  1880 F     Mary   7065 0.0724
-```
-
---
-
-Here, the "sentence" starts with a &lt;font color="#ED1941"&gt;verb&lt;/font&gt;.
-
---
-
-&lt;hr&gt;
-
-*Piping* a dataframe into a function lets you read L to R
-
-
-```r
-babynames %&gt;% slice(1)
-```
-
-```
-# A tibble: 1 x 5
-   year sex   name      n   prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1  1880 F     Mary   7065 0.0724
-```
-
---
-
-Now, the "sentence" starts with a &lt;font color="#ED1941"&gt;noun&lt;/font&gt;.
-
-
-
----
-class: middle
-
-Sequences of functions make you read *inside out*
-
-
-```r
-slice(filter(babynames, sex == "M"), 1)
-```
-
-```
-# A tibble: 1 x 5
-   year sex   name      n   prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1  1880 M     John   9655 0.0815
-```
-
---
-
-&lt;hr&gt;
-
-Chaining functions together lets you read *L to R*
-
-
-```r
-babynames %&gt;% filter(sex == "M") %&gt;% slice(1)
-```
-
-```
-# A tibble: 1 x 5
-   year sex   name      n   prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1  1880 M     John   9655 0.0815
-```
-
-
----
-class: inverse, middle, center
-
-&lt;img src="https://www.rstudio.com/wp-content/uploads/2014/04/magrittr.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-## "dataframe first, dataframe once" 
-
----
-class: middle
-
-
-```r
-babynames %&gt;% filter(sex == "M") %&gt;% slice(1)
-```
-
-```
-# A tibble: 1 x 5
-   year sex   name      n   prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1  1880 M     John   9655 0.0815
-```
-
---
-
-&lt;hr&gt;
-
-This does the same thing: 
-
-
-```r
-babynames %&gt;% filter(.data = ., sex == "M") %&gt;% slice(.data = ., 1)
-```
-
-```
-# A tibble: 1 x 5
-   year sex   name      n   prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1  1880 M     John   9655 0.0815
-```
-
---
-
-&lt;hr&gt;
-
-So does this:
-
-
-```r
-babynames %&gt;% filter(., sex == "M") %&gt;% slice(., 1)
-```
-
-```
-# A tibble: 1 x 5
-   year sex   name      n   prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1  1880 M     John   9655 0.0815
-```
-
----
-class: inverse, middle, center
-
-
-## I know...
-
-![](https://media.giphy.com/media/uEhLWy2eu87Ly/source.gif)
-
----
-class: inverse, middle, center
-
-
-## I promise, it gets better.
-
-![](https://media.giphy.com/media/l0MYRzcWP7cjfNQ2I/giphy.gif)
-
----
-class: inverse, middle, center
-
-
-# 🏃🏽
-
-## Resources for Working in R:
-
-http://r4ds.had.co.nz/workflow-basics.html
-
-http://moderndive.com/2-getting-started.html
-
-https://bookdown.org/chesterismay/rbasics/3-rstudiobasics.html
-
-https://github.com/rstudio/cheatsheets/blob/master/rstudio-ide.pdf
-
----
-
-## Install &amp; load multiple R packages
-
-
-This can get to be a long list if we want to use a lot of new packages in our work session. We can make a function to load a *list* of packages, and install them if not already installed (more on functions later).
-
-
-```r
-pkgs &lt;- c("readr", "dplyr", "tidyr") # list packages needed
-```
-
---
-
-
-```r
-ipak &lt;- function(pkg){
-    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
-    if (length(new.pkg)) 
-        install.packages(new.pkg, dependencies = TRUE)
-    sapply(pkg, require, character.only = TRUE)
-}
-```
-
---
-
-
-```r
-ipak(pkgs) # take function, and give it that list
-```
-
-Function from: https://gist.github.com/stevenworthington/3178163
-
+# References
+
+Hollway, J. (2021). _iheiddown: A package for writing IHEID documents
+in RMarkdown_. R package version 0.8.0. URL:
+[https://github.com/jhollway/iheiddown](https://github.com/jhollway/iheiddown).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/macros.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "atelier-lakeside-light",
+"ratio": "16:9",
+"highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

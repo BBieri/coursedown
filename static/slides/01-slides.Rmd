@@ -1,678 +1,326 @@
 ---
-title: "Lab 01: CS631"
-subtitle: "Working in R"
-author: "Alison Hill"
+title: "Title"
+subtitle: "Subtitle"
+author: "<large>Author Name</large>"
+# institute: "<small>Graduate Institute Geneva</small>" # uncomment to include
+# date: "`r format(Sys.Date(), '%A, %e %B, %Y')`" # uncomment to include
 output:
   xaringan::moon_reader:
-    css: ["default", "css/ohsu.css", "css/ohsu-fonts.css"]
-    lib_dir: libs
+    css: 
+      - "default"
+      - "css/iheid-xaringan-style.css" # You need to change this file path to css/...
+      - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      - "ninjutsu"
+    chakra: "https://remarkjs.com/downloads/remark-latest.min.js"
+    # if you want to work offline, run the following command...
+    # xaringan::summon_remark()
+    # ...and then comment out lines 10-13 and uncomment lines 14-15:
+    # lib_dir: libs
+    # chakra: libs/remark-latest.min.js # For offline
     nature:
-      highlightStyle: atelier-lakeside-light
+      ratio: '16:9'
+      highlightStyle: github
       highlightLines: true
+      beforeInit: "js/macros.js"
       countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>`
 ---
+class: center, middle
+
+# With this template, it is very easy to build good looking slides
+
+## and you can centre everything for title/section/other slides
 
 ```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
-  comment = NA, dpi = 300,
-  fig.align = "center", out.width = "80%", cache = FALSE)
-library(tidyverse)
-library(babynames)
+# don't mind this code chunk, it just sets up a few things for the rest
+# it doesn't appear, because the include argument above is FALSE...
+options(htmltools.dir.version = FALSE, servr.daemon = TRUE)
+knitr::opts_chunk$set(cache=TRUE, autodep = TRUE, fig.retina = 3, message = FALSE, warning = FALSE)
+old <- ggplot2::theme_set(iheiddown::theme_iheid())
 ```
 
-## R Basics
-
---
-
-* R is an interpreter (`>`)
-
---
-
-* Name objects in R (`i_like_snake_case <- `)
-
---
-
-* Know your object types (`typeof()`)
-
---
-
-* Case matters (`my_names != My_names`)
-
-
---
-
-* Use comments! (`# use the hashtag symbol`) 
-
---
-
-* Functions (`fun`!)
-
---
-
-* Use packages (*"install once per machine, load once per R session"*)
-
---
-
-* Use the `%>%` (*"dataframe first, dataframe once"*)
-
-
-
-
-
----
-
-## R is an interpreter `>`
-
---
-
-You enter commands line-by-line (as opposed to compiled languages).
-
---
-
-* The `>` means R is a ready for a command
-
---
-
-* The `+` means your last command isn't complete
-
---
-
-    - If you get stuck with a `+` use your escape key!
-
-
----
-class: center, middle, inverse
-
-# 🐍
-
-## Name Objects in R
-
-## `i_like_snake_case <-`
-
---
-
-RStudio Keyboard Shortcuts:
-
-OSX: `Option` + `-`
-
-Else: `Alt` + `-`
-
-*(the + means and, not the + key)*
-
----
-
-## Name your own objects
-
-
-```{r}
-us <- c("Steven", "Jackie", "Alison") # combine strings
-us
-```
-
---
-
-```{r}
-num_labs <- c(1:10) # combine numbers
-num_labs
-```
-
---
-
-```{r}
-mood <- rep("yippee", length(num_labs)) # replicate 10 times
-mood
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes the bibliography
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("bib/myBibClass1.bib", check = FALSE)
+# Note: don't forget to clear the knitr cache to account for changes in the
+# bibliography.
 ```
 
 ---
+class: middle, inverse, iheid-red
 
-## Re-name others' objects
+## You can colour the background and add images using straightforward markdown syntax
 
+.center[
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-```{r}
-my_alpha <- letters # built-in, no package needed
-my_alpha
-```
-
---
-
-```{r}
-my_names <- babynames # from the babynames package
-my_names
-```
-
+James Hollway (Instructor)
+]
 
 ---
-
-## What to name objects?
-
-```{r eval=FALSE}
-?make.names
-```
-
+## You can also pull images (or text) to the left or right to build columns
 
 .pull-left[
-Object names cannot:
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-- Start with a number
-- Contain a space
-- Contain ["reserved" words](http://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html)
+James Hollway (Instructor)
 ]
-
---
 
 .pull-right[
-Object names must:
+I can add paragraphs of extra information...
 
-- Start with a letter
-- Contain letters, numbers, `_` and `.`
+or a bullet list...
+
+- one
+- two
+- three
+
+or a numbered list...
+
+1. one
+1. two
+4. three
+]
+
+---
+class: split-four, center
+
+# Present your team by slicing the slide up with ninjutsu!
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Prof. Smith*
+
+Principal Investigator
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Dr. Jones*
+
+Doctoral Research Assistant
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Ms. Dupont*
+
+Research Assistant
+
+]]
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Mr. Dupond*
+
+Research Assistant
+
+]]
+
+---
+## You can build a step-by-step reveal
+
+--
+
+By using double dashes `--` to separate lines of text or code,
+we can build a slide up gradually.
+--
+
+For example here is some more text...
+--
+
+Or here is an example of some math...
+
+$$ X = \sum_i^n x_i $$
+
+--
+
+Or here is a quick plot built (and cached) when the Rmarkdown document is run:
+
+```{r, fig.height=4}
+plot(iris)
+```
+
+---
+class: highlight-last-item
+
+## Add progressive lists
+
+Adding the class `highlight-last-item` allows you to highlight the last element
+of a progressive list.
+
+- First item
+
+--
+
+- Second item
+
+--
+
+-  For more options, see the `iheid-xaringan-style.css` file and search for
+"progressive slides". This feature was based on [this great article](https://www.garrickadenbuie.com/blog/better-progressive-xaringan/?panelset2=r-markdown3&panelset=r-markdown&panelset1=slides2).
+
+---
+class: show-only-last-code-result
+
+## Progressive code
+
+Adding the class `show-only-last-code-result` allows you to render only the last
+code result.
+
+```{r}
+runif(5)
+```
+--
+
+```{r}
+rnorm(5)
+```
+--
+
+```{r}
+rbinom(5, 1, 0.5)
+```
+--
+
+```{r}
+rcauchy(5)
+```
+
+---
+class: center, middle
+## Or you can highlight which section of your presentation you are up to...
+
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/NYCS-bull-trans-1.svg/1024px-NYCS-bull-trans-1.svg.png)]]
+.pull-1[.circleon[![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/NYCS-bull-trans-2.svg/1200px-NYCS-bull-trans-2.svg.png)]]
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1200px-NYCS-bull-trans-3.svg.png)]]
+
+---
+class: left, middle
+
+.blockquote[You can add unquotable quotes
+
+~ Some person]
+
+---
+class: with-logo logo-iheid
+
+## Add a logo to your presentation 
+
+.pull-left[Adding a nice looking logo to your presentation is easy. Simply 
+define the `with-logo` class alongside the class of the logo itself 
+(`logo-iheid` in this case) on every slide you want the logo to appear.
+
+See [the presentation vignette](https://github.com/jhollway/iheiddown) for a
+list of the included logos.]
+
+---
+
+## Add Maps
+
+```{r, fig.height=4, fig.width=10, fig.align='center', echo=TRUE}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%
+  setView(6.1435, 46.2210, zoom = 17)
+```
+
+---
+
+## Add some tables !
+
+With the addition of the excellent [`{xaringan_columns}`](https://github.com/emilyriederer/xaringan_columns) macros by Emily
+Riederer, you can create nice looking multicolumn tables using clean markdown code.
+
+![:col_header Header 1, Header 2, Header 3, Header 4, Header 5]
+![:col_list You can add rows with bulletted lists, item2, item3, hello, more content]
+![:col_list item4, item5, Or normal chunks of text (see below), la la la, tra la la]
+![:col_row 
+    More text,
+    More text,
+    .,
+    More text,
+    More text
 ]
 
 ---
 
-## Adopt a consistent naming style
-
-```{r eval = FALSE}
-i_use_snake_case # recommended
-otherPeopleUseCamelCase
-some.people.use.periods
-And_aFew.People_RENOUNCEconvention
+## More tables; kable and kableExtra packages
+.pull-left[Kable: great features for displaying simple tables!
+```{r, fig.height = 4, fig.width=10, echo=TRUE}
+knitr::kable(head(mtcars[1:4], 5), format = 'html')
 ```
 
-From: http://r4ds.had.co.nz/workflow-basics.html#whats-in-a-name
+See [the knitr documentation](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)
+for additional options.
+]
 
-Read more:
-http://style.tidyverse.org/syntax.html#object-names
+.pull-right[Want to get fancier? Use kableExtra!
+```{r, fig.height = 2, fig.width=2, echo=TRUE}
+head(mtcars[1:4], 3) %>% 
+  kableExtra::kbl()%>%
+  kableExtra::kable_material(c("hover", "striped", "condensed"), full_width = F)
+```
 
-
-
----
-class: center, middle, inverse
-
-
-# 🔦
-
-## Know Your Data Types
-
-
-## `typeof()`
+See [the kableExtra documentation](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+for additional options.
+]
 
 ---
 
-## Know your data types
+## Interactive tables; DT package
 
-
-* Numeric (2 subtypes)
-    - Integers (`1, 50`)
-    - Double (`1.5, 50.25`, `?double`)
-* Character (`"hello"`)
-* Factor (`grade = "A" | grade = "B"`)
-* Logical (`TRUE | FALSE`)
-
---
-
-```{r}
-typeof(num_labs) # numeric
-typeof(mood) # "yippee" is a character
-typeof(mood == "yippee") # is mood equal to "yippee"- T or F?
+```{r, fig.height = 4, fig.width=10, echo=TRUE}
+library(DT)
+DT::datatable(head(mtcars, 10),
+  fillContainer = FALSE, options = list(pageLength = 4))
 ```
 
+See the [DT package documentation](https://rstudio.github.io/DT/) for the
+additional options.
 
+---
+class: animate__animated, animate__slideInRight
+
+## Add slide transitions to  your slides
+
+Simply add the class `animate__animated` and the class corresponding to the
+desired animation such as `animate__slideInRight`, et voilà!
+
+For a complete list of the available animations and further options, visit
+[animate.style](https://animate.style/).
+
+.center[![Animation GIF](https://i.giphy.com/media/Oo6GWyiWEDgtO/giphy.webp)]
+
+---
+background-image: url(https://media1.giphy.com/media/xT0BKiK5sOCVdBUhiM/giphy.gif)
+background-size: contain
+
+# And finally, you can add gifs!
+
+---
+class: inverse iheid-red center middle with-logo logo-iheid_BW
+
+Made with `{iheiddown}`, the R-package for IHEID publications
+`r Cite(myBib, "iheiddown")`.
 
 ---
 
-## Characters can be deceiving
+# References
 
-
-
-```{r}
-my_things <- c(num_labs, mood)
-my_things
+```{r refs, echo=FALSE, results="asis"}
+RefManageR::PrintBibliography(myBib)
 ```
-
---
-
-```{r}
-typeof(my_things) 
-```
-
-
----
-
-## `NA` is special
-
-
-```{r missing-values-in-vector}
-num_labs <- c(num_labs, NA) 
-```
-
---
-
-```{r}
-typeof(num_labs)
-```
-
---
-
-```{r}
-num_labs*3
-max(num_labs)
-max(num_labs, na.rm = TRUE)
-```
-
-
-
----
-class: center, middle, inverse
-
-
-## Case matters
-
-## `my_names != My_names`
-
----
-
-## Case matters
-
-This works:
-
-```{r works}
-glimpse(babynames)
-```
-
---
-
-These do not:
-
-```{r wont-work, error = TRUE}
-Glimpse(babynames) # no function
-glimpse(Babynames) # no data 
-```
-
-
----
-class: center, middle, inverse
-
-# 📢
-
-## Comments
-
-## `# go here`
-
----
-
-## Text behind a `#` is a comment
-
-```{r}
-num_labs + 2 # add 2 here
-
-num_weeks <- num_labs + 2 # save as new object
-```
-
---
-
-```{r}
-# I can say anything I want here...
-num_weeks
-```
-
---
-
-```{r error = TRUE}
-but not here
-```
-
----
-class: center, middle, inverse
-
-# 🍰
-
-## Functions
-
-
-
-
-
-
----
-background-image: url("../images/Slide06.png")
-background-size: cover
-
----
-background-image: url("../images/Slide07.png")
-background-size: cover
-
----
-background-image: url("../images/Slide08.png")
-background-size: cover
-
----
-background-image: url("../images/Slide10.png")
-background-size: cover
-
-
-
-
-
----
-
-## Functions 
-
-Sometimes abbreviated `funs` in documentation, which is a little ironic 😉.
-
-Functions can come from:
-
-- base R (these functions are "built in")
-- packages
-- you
-
----
-class: middle
-
-# Base R Functions
-
-```{r}
-seq(1, 12, 1) # base R
-```
-
----
-class: middle
-
-# Functions from Packages
-
-```{r}
-babynames %>% count(sex) # count is from dplyr
-```
-
----
-class: middle
-
-# Roll Your Own Functions
-
-```{r}
-greet <- function(name) {
-  glue::glue("Welcome to CS631, {name}!")
-}
-greet("Sloane")
-```
-
-
-
-
-
-
----
-
-# Function help
-
-```{r eval = FALSE}
-?seq
-?count
-```
-
-
-
-Pay attention to: 
-
---
-
-* Usage *(recipe)*
-
---
-
-* Arguments *(ingredients)*
-
---
-
-* Examples 
-
-
---
-
-Read more: 
-- http://r4ds.had.co.nz/workflow-basics.html#calling-functions
-- http://socviz.co/appendix.html#a-little-more-about-r
-- http://stat545.com/block011_write-your-own-function-01.html
-- http://stat545.com/block011_write-your-own-function-02.html
-- http://stat545.com/block011_write-your-own-function-03.html
-
-
-
----
-class: center, middle, inverse
-
-# 📦
-
-## Packages
-
-
-
-*"install once per machine, load once per R session"*
-
----
-
-## Packages! 
-
-*Install once* per machine
-
-```{r eval = FALSE}
-install.packages("dplyr")
-```
-
---
-
-*Load once* per R work session
-
-```{r eval = FALSE}
-library(dplyr)
-```
-
---
-
-*also: quotes matter, sorry*
-
----
-class: inverse, middle, center
-
-```{r out.width = '50%', echo = FALSE}
-knitr::include_graphics("https://www.tidyverse.org/images/hex-tidyverse.png")
-```
-
-## The `tidyverse` package ecosystem
-
-https://www.tidyverse.org
-
----
-class: inverse, middle, center
-
-
-
-```{r out.width = '25%', echo = FALSE}
-knitr::include_graphics("https://www.tidyverse.org/images/hex-tidyverse.png")
-```
-
-
-
-*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."*
-
-
-
-```{r eval = FALSE}
-install.packages("tidyverse")
-library(tidyverse)
-```
-
-See packages included here: https://www.tidyverse.org/packages/
-
-
----
-class: center, middle, inverse
-
-# `%>%`
-
-## The pipe
-
-*"dataframe first, dataframe once"*
-
---
-
-```{r eval = FALSE}
-library(dplyr)
-```
-
-
---
-
-RStudio Keyboard Shortcuts:
-
-OSX: `CMD` + `SHIFT` + `M`
-
-Else: `CTRL` + `SHIFT` + `M`
-
----
-class: middle
-
-*Nesting* a dataframe inside a function is hard to read.
-
-```{r}
-slice(babynames, 1)
-```
-
---
-
-Here, the "sentence" starts with a <font color="#ED1941">verb</font>.
-
---
-
-<hr>
-
-*Piping* a dataframe into a function lets you read L to R
-
-```{r}
-babynames %>% slice(1)
-```
-
---
-
-Now, the "sentence" starts with a <font color="#ED1941">noun</font>.
-
-
-
----
-class: middle
-
-Sequences of functions make you read *inside out*
-
-```{r}
-slice(filter(babynames, sex == "M"), 1)
-```
-
---
-
-<hr>
-
-Chaining functions together lets you read *L to R*
-
-```{r}
-babynames %>% filter(sex == "M") %>% slice(1)
-```
-
-
----
-class: inverse, middle, center
-
-```{r out.width = '50%', echo = FALSE}
-knitr::include_graphics("https://www.rstudio.com/wp-content/uploads/2014/04/magrittr.png")
-```
-
-## "dataframe first, dataframe once" 
-
----
-class: middle
-
-```{r}
-babynames %>% filter(sex == "M") %>% slice(1)
-```
-
---
-
-<hr>
-
-This does the same thing: 
-
-```{r}
-babynames %>% filter(.data = ., sex == "M") %>% slice(.data = ., 1)
-```
-
---
-
-<hr>
-
-So does this:
-
-```{r}
-babynames %>% filter(., sex == "M") %>% slice(., 1)
-```
-
----
-class: inverse, middle, center
-
-
-## I know...
-
-![](https://media.giphy.com/media/uEhLWy2eu87Ly/source.gif)
-
----
-class: inverse, middle, center
-
-
-## I promise, it gets better.
-
-![](https://media.giphy.com/media/l0MYRzcWP7cjfNQ2I/giphy.gif)
-
----
-class: inverse, middle, center
-
-
-# 🏃🏽
-
-## Resources for Working in R:
-
-http://r4ds.had.co.nz/workflow-basics.html
-
-http://moderndive.com/2-getting-started.html
-
-https://bookdown.org/chesterismay/rbasics/3-rstudiobasics.html
-
-https://github.com/rstudio/cheatsheets/blob/master/rstudio-ide.pdf
-
----
-
-## Install & load multiple R packages
-
-
-This can get to be a long list if we want to use a lot of new packages in our work session. We can make a function to load a *list* of packages, and install them if not already installed (more on functions later).
-
-```{r package-list-to-load}
-pkgs <- c("readr", "dplyr", "tidyr") # list packages needed
-```
-
---
-
-```{r}
-ipak <- function(pkg){
-    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-    if (length(new.pkg)) 
-        install.packages(new.pkg, dependencies = TRUE)
-    sapply(pkg, require, character.only = TRUE)
-}
-```
-
---
-
-```{r run-pkg-function, eval = FALSE}
-ipak(pkgs) # take function, and give it that list
-```
-
-Function from: https://gist.github.com/stevenworthington/3178163
-

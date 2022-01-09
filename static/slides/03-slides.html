@@ -1,602 +1,445 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Lab 03: CS631</title>
+    <title>Title</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Alison Hill" />
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/ohsu.css" type="text/css" />
-    <link rel="stylesheet" href="css/ohsu-fonts.css" type="text/css" />
+    <meta name="author" content="Author Name" />
+    <script src="03-slides_files/header-attrs/header-attrs.js"></script>
+    <link href="03-slides_files/remark-css/default.css" rel="stylesheet" />
+    <link href="03-slides_files/remark-css/ninjutsu.css" rel="stylesheet" />
+    <script src="03-slides_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="03-slides_files/jquery/jquery-3.6.0.min.js"></script>
+    <link href="03-slides_files/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="03-slides_files/leaflet/leaflet.js"></script>
+    <link href="03-slides_files/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="03-slides_files/proj4/proj4.min.js"></script>
+    <script src="03-slides_files/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="03-slides_files/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="03-slides_files/leaflet-binding/leaflet.js"></script>
+    <script src="03-slides_files/kePrint/kePrint.js"></script>
+    <link href="03-slides_files/lightable/lightable.css" rel="stylesheet" />
+    <link href="03-slides_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="03-slides_files/datatables-binding/datatables.js"></script>
+    <link href="03-slides_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="03-slides_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="03-slides_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="03-slides_files/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="03-slides_files/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/iheid-xaringan-style.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Lab 03: CS631
-## Working with Data
-### Alison Hill
+# Title
+## Subtitle
+### <large>Author Name</large>
 
 ---
 
+class: center, middle
+
+# With this template, it is very easy to build good looking slides
+
+## and you can centre everything for title/section/other slides
 
 
-
-
-
-
-# Data for today
-
-We'll use data from [Wordbank](http://wordbank.stanford.edu)- an open source database of children's vocabulary development. The tool used to measure children's language and communicative development in this database is the [MacArthur-Bates Communicative Development Inventories (MB-CDI)](http://mb-cdi.stanford.edu). The MB-CDI is a parent-reported questionnaire.
-
-- R package [`wordbankr`](https://cran.r-project.org/web/packages/wordbankr/index.html)
-- [`wordbankr` vignette](https://cran.r-project.org/web/packages/wordbankr/vignettes/wordbankr.html)
-- More about [Wordbank](http://wordbank.stanford.edu)
-- More about [MB-CDI](http://mb-cdi.stanford.edu)
-
-
----
-# Get the data
-
-Use this code chunk to import my cleaned CSV file:
-
-
-```r
-library(readr)
-sounds &lt;- read_csv("http://bit.ly/cs631-meow")
-```
-
-
----
-class: inverse, middle, center
-
-&lt;img src="../images/r-data-types.png" width="65%" style="display: block; margin: auto;" /&gt;
-
-
-## RStudio Base R Cheatsheet
-
-https://github.com/rstudio/cheatsheets/blob/master/base-r.pdf
-
-
----
-
-## Know your data types
-
-
-* Numeric (2 subtypes)
-    - Integers (`1, 50`)
-    - Double (`1.5, 50.25`, `?double`)
-* Character (`"hello"`)
-* Factor (`grade = "A" | grade = "B"`)
-* Logical (`TRUE | FALSE`)
-
---
-
-
-```r
-typeof(sounds$age)
-```
-
-```
-[1] "double"
-```
-
-```r
-typeof(sounds$sound)
-```
-
-```
-[1] "character"
-```
-
-```r
-typeof(sounds$sound == "meow")
-```
-
-```
-[1] "logical"
-```
-
----
-# Even better: `glimpse`
-
-
-```r
-glimpse(sounds)
-```
-
-```
-Observations: 33
-Variables: 4
-$ age          &lt;dbl&gt; 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 12, 13…
-$ sound        &lt;chr&gt; "cockadoodledoo", "meow", "woof woof", "cockadoodledoo",…
-$ kids_produce &lt;dbl&gt; 1, 0, 3, 0, 2, 2, 0, 5, 4, 0, 5, 12, 0, 12, 28, 9, 125, …
-$ kids_respond &lt;dbl&gt; 35, 35, 35, 91, 93, 93, 139, 145, 143, 94, 94, 94, 141, …
-```
-
-
----
-# `sounds` (a subset)
-
-
-- `age`: child age in months
-- `sound`: a string describing a type of animal sound
-- `kids_produce`: the number of parents who answered "yes, my child produces this animal sound" 
-- `kids_respond`: the number of parents who responded to this question at all
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; age &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; sound &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; kids_produce &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; kids_respond &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; cockadoodledoo &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; meow &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; woof woof &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; cockadoodledoo &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 91 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; meow &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; woof woof &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
 
 
 
 ---
-# Data types
+class: middle, inverse, iheid-red
 
-&lt;img src="http://r4ds.had.co.nz/diagrams/data-structures-overview.png" width="65%" style="display: block; margin: auto;" /&gt;
+## You can colour the background and add images using straightforward markdown syntax
 
+.center[
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
----
-class: middle, center, inverse
-
-# ⌛️
-
-## Let's review 
+James Hollway (Instructor)
+]
 
 ---
-
-# Data wrangling with `dplyr` 
-
+## You can also pull images (or text) to the left or right to build columns
 
 .pull-left[
-From DataCamp Chapter 3
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-- `group_by`
-
-- `summarize`
-
-
+James Hollway (Instructor)
 ]
-
---
 
 .pull-right[
-Adding onto your arsenal of...
+I can add paragraphs of extra information...
 
-- `filter`
+or a bullet list...
 
-- `arrange`
+- one
+- two
+- three
 
-- `mutate`
+or a numbered list...
 
-- `glimpse`
-
-- `distinct`
-
-- `count`
-
-- `tally`
-
-- `pull`
-
-- `top_n`
+1. one
+1. two
+4. three
 ]
 
 ---
-class: middle, center, inverse
+class: split-four, center
 
-# 😈
+# Present your team by slicing the slide up with ninjutsu!
 
-## More on `mutate`
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Prof. Smith*
+
+Principal Investigator
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Dr. Jones*
+
+Doctoral Research Assistant
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Ms. Dupont*
+
+Research Assistant
+
+]]
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Mr. Dupond*
+
+Research Assistant
+
+]]
 
 ---
-# 3 ways to `mutate` 
+## You can build a step-by-step reveal
 
-1. &lt;font color="#ED1941"&gt;Create a new variable with a specific value&lt;/font&gt;  
+--
 
-1. Create a new variable based on other variables 
+By using double dashes `--` to separate lines of text or code,
+we can build a slide up gradually.
+--
 
-1. Change an existing variable
+For example here is some more text...
+--
 
+Or here is an example of some math...
+
+$$ X = \sum_i^n x_i $$
+
+--
+
+Or here is a quick plot built (and cached) when the Rmarkdown document is run:
+
+
+```r
+plot(iris)
+```
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-1-1.png" width="504" /&gt;
+
+---
+class: highlight-last-item
+
+## Add progressive lists
+
+Adding the class `highlight-last-item` allows you to highlight the last element
+of a progressive list.
+
+- First item
+
+--
+
+- Second item
+
+--
+
+-  For more options, see the `iheid-xaringan-style.css` file and search for
+"progressive slides". This feature was based on [this great article](https://www.garrickadenbuie.com/blog/better-progressive-xaringan/?panelset2=r-markdown3&amp;panelset=r-markdown&amp;panelset1=slides2).
+
+---
+class: show-only-last-code-result
+
+## Progressive code
+
+Adding the class `show-only-last-code-result` allows you to render only the last
+code result.
+
+
+```r
+runif(5)
+```
+
+```
+## [1] 0.10177531 0.09637108 0.78844928 0.65722594 0.44882536
+```
 --
 
 
 ```r
-sounds %&gt;% 
-  mutate(form = "WS")
+rnorm(5)
 ```
 
 ```
-# A tibble: 33 x 5
-     age sound          kids_produce kids_respond form 
-   &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;
- 1     8 cockadoodledoo            1           35 WS   
- 2     8 meow                      0           35 WS   
- 3     8 woof woof                 3           35 WS   
- 4     9 cockadoodledoo            0           91 WS   
- 5     9 meow                      2           93 WS   
- 6     9 woof woof                 2           93 WS   
- 7    10 cockadoodledoo            0          139 WS   
- 8    10 meow                      5          145 WS   
- 9    10 woof woof                 4          143 WS   
-10    11 cockadoodledoo            0           94 WS   
-# … with 23 more rows
+## [1] -1.3474286 -0.1743010  0.1770405  2.6353774  1.1208293
 ```
-
----
-# 3 ways to `mutate`
-
-
-1. Create a new variable with a specific value
-
-1. &lt;font color="#ED1941"&gt;Create a new variable based on other variables&lt;/font&gt; 
-
-1. Change an existing variable
-
 --
 
 
 ```r
-sounds %&gt;% 
-  mutate(prop_produce = kids_produce / kids_respond)
+rbinom(5, 1, 0.5)
 ```
 
 ```
-# A tibble: 33 x 5
-     age sound          kids_produce kids_respond prop_produce
-   &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
- 1     8 cockadoodledoo            1           35       0.0286
- 2     8 meow                      0           35       0     
- 3     8 woof woof                 3           35       0.0857
- 4     9 cockadoodledoo            0           91       0     
- 5     9 meow                      2           93       0.0215
- 6     9 woof woof                 2           93       0.0215
- 7    10 cockadoodledoo            0          139       0     
- 8    10 meow                      5          145       0.0345
- 9    10 woof woof                 4          143       0.0280
-10    11 cockadoodledoo            0           94       0     
-# … with 23 more rows
+## [1] 1 1 0 0 0
 ```
-
----
-# 3 ways to `mutate`
-
-1. Create a new variable with a specific value
-
-1. Create a new variable based on other variables
-
-1. &lt;font color="#ED1941"&gt;Change an existing variable&lt;/font&gt; 
-
 --
 
 
+```r
+rcauchy(5)
+```
+
+```
+## [1] -0.06322364 -0.83571134  0.19954174 18.77648316 -0.24606066
+```
+
+---
+class: center, middle
+## Or you can highlight which section of your presentation you are up to...
+
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/NYCS-bull-trans-1.svg/1024px-NYCS-bull-trans-1.svg.png)]]
+.pull-1[.circleon[![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/NYCS-bull-trans-2.svg/1200px-NYCS-bull-trans-2.svg.png)]]
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1200px-NYCS-bull-trans-3.svg.png)]]
+
+---
+class: left, middle
+
+.blockquote[You can add unquotable quotes
+
+~ Some person]
+
+---
+class: with-logo logo-iheid
+
+## Add a logo to your presentation 
+
+.pull-left[Adding a nice looking logo to your presentation is easy. Simply 
+define the `with-logo` class alongside the class of the logo itself 
+(`logo-iheid` in this case) on every slide you want the logo to appear.
+
+See [the presentation vignette](https://github.com/jhollway/iheiddown) for a
+list of the included logos.]
+
+---
+
+## Add Maps
 
 
 ```r
-sounds %&gt;% 
-  mutate(prop_produce = prop_produce * 100)
+library(leaflet)
+leaflet() %&gt;%
+  addTiles() %&gt;%
+  setView(6.1435, 46.2210, zoom = 17)
 ```
 
-```
-# A tibble: 33 x 5
-     age sound          kids_produce kids_respond prop_produce
-   &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
- 1     8 cockadoodledoo            1           35         2.86
- 2     8 meow                      0           35         0   
- 3     8 woof woof                 3           35         8.57
- 4     9 cockadoodledoo            0           91         0   
- 5     9 meow                      2           93         2.15
- 6     9 woof woof                 2           93         2.15
- 7    10 cockadoodledoo            0          139         0   
- 8    10 meow                      5          145         3.45
- 9    10 woof woof                 4          143         2.80
-10    11 cockadoodledoo            0           94         0   
-# … with 23 more rows
-```
-
----
-class: middle, center, inverse
-
-# ⌛️
-
-## Let's review some helpful functions for `mutate` + `summarize`
-
----
-class: inverse, bottom, center
-background-image: url("../images/peapod.png")
-background-size: 25%
-
-
-## Remember:
-
-## Base R + Tidyverse
-
-
----
-class: middle, center, inverse
-
-#💡
-
-## First: 
-
-## Arithmetic
-
-*especially useful for* `mutate`
-
-See:
-
-http://r4ds.had.co.nz/transform.html#mutate-funs
+<div id="htmlwidget-ea25c1cf2d0e6f616297" style="width:720px;height:288px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ea25c1cf2d0e6f616297">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[46.221,6.1435],17,[]]},"evals":[],"jsHooks":[]}</script>
 
 ---
 
+## Add some tables !
+
+With the addition of the excellent [`{xaringan_columns}`](https://github.com/emilyriederer/xaringan_columns) macros by Emily
+Riederer, you can create nice looking multicolumn tables using clean markdown code.
+
+![:col_header Header 1, Header 2, Header 3, Header 4, Header 5]
+![:col_list You can add rows with bulletted lists, item2, item3, hello, more content]
+![:col_list item4, item5, Or normal chunks of text (see below), la la la, tra la la]
+![:col_row 
+    More text,
+    More text,
+    .,
+    More text,
+    More text
+]
+
+---
+
+## More tables; kable and kableExtra packages
+.pull-left[Kable: great features for displaying simple tables!
 
 ```r
-?Arithmetic
+knitr::kable(head(mtcars[1:4], 5), format = 'html')
 ```
-
-
-
 
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Operator &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Usage &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mpg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; disp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; hp &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; addition &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x + y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; subtraction &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x - y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 Wag &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; * &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; multiplication &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x * y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Datsun 710 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; / &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; division &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x / y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Hornet 4 Drive &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 258 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; ^ &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; raised to the power of &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x ^ y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; abs &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; absolute value &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; abs(x) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; %/% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; integer division &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x %/% y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; %% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; remainder after division &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x %% y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Hornet Sportabout &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 360 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 175 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+See [the knitr documentation](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)
+for additional options.
+]
+
+.pull-right[Want to get fancier? Use kableExtra!
 
 ```r
-5 %/% 2 # 2 goes into 5 two times with...
+head(mtcars[1:4], 3) %&gt;% 
+  kableExtra::kbl()%&gt;%
+  kableExtra::kable_material(c("hover", "striped", "condensed"), full_width = F)
 ```
 
-```
-[1] 2
-```
-
-```r
-5 %% 2 # 1 left over
-```
-
-```
-[1] 1
-```
-
-
----
-class: middle, center, inverse
-
-#💡
-
-## Second: 
-
-## Summaries
-
-*especially useful for* `summarize`
-
-*even more useful after a* `group_by`
-
-See:
-
-http://r4ds.had.co.nz/transform.html#summarise-funs
-
-
-
----
-
-
-
-
-&lt;table&gt;
+&lt;table class=" lightable-material lightable-striped lightable-hover" style='font-family: "Source Sans Pro", helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Usage &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mpg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; disp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; hp &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; sum &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; sum(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; minimum &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; min(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 Wag &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; maximum &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; max(x) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; mean &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; mean(x) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; median &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; mean(x) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; standard deviation &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; sd(x) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; variance &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; var(x) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; rank &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; rank(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Datsun 710 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-* All allow for `na.rm` argument to remove `NA` values before summarizing. The default setting for this argument is *always* `na.rm = FALSE`, so if there is one `NA` value the summary will be `NA`.
-
-* See "Maths Functions" in the RStudio Base R Cheatsheet:
-https://github.com/rstudio/cheatsheets/blob/master/base-r.pdf
-
----
-class: inverse, middle, center
-
-![](../images/alicedata-lego-colors.jpg)
-## &lt;small&gt;"Spent day pondering grayscale vs colourscale using `ggplot`"&lt;/small&gt;
-
-*photo and caption courtesy [@alice-data](https://twitter.com/alice_data)*
+See [the kableExtra documentation](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+for additional options.
+]
 
 ---
-# Today's lab: COLORS
 
-Specifically, discrete colors.
-
-At the end of today's lab, you'll see an extra section on continuous colors. 
-
----
-## But first: `shape`
-
-&lt;img src="03-slides_files/figure-html/unnamed-chunk-18-1.png" width="65%" style="display: block; margin: auto;" /&gt;
-
----
-## Shapes with `color = "hotpink"`
-
-
-&lt;img src="03-slides_files/figure-html/unnamed-chunk-19-1.png" width="65%" style="display: block; margin: auto;" /&gt;
-
-
----
-## Shapes with `fill = "gold"`
-
-
-&lt;img src="03-slides_files/figure-html/unnamed-chunk-20-1.png" width="65%" style="display: block; margin: auto;" /&gt;
-
----
-## Default shape for `geom_point`
-
-🕵🏽 Requires spelunking into the dark corners of the `ggplot2` code on [GitHub](https://github.com/tidyverse/ggplot2/blob/master/R/geom-point.r):
+## Interactive tables; DT package
 
 
 ```r
-default_aes = aes(
-    shape = 19, colour = "black", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5
-  )
+library(DT)
+DT::datatable(head(mtcars, 10),
+  fillContainer = FALSE, options = list(pageLength = 4))
 ```
 
-So, the default for `geom_point(shape = 19)`! This is important to remember: this shape only "understands" the *color* aesthetic, but not the *fill* aesthetic.
+<div id="htmlwidget-fbc2179932846a81d90f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fbc2179932846a81d90f">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["Mazda RX4","Mazda RX4 Wag","Datsun 710","Hornet 4 Drive","Hornet Sportabout","Valiant","Duster 360","Merc 240D","Merc 230","Merc 280"],[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2],[6,6,4,6,8,6,8,4,4,6],[160,160,108,258,360,225,360,146.7,140.8,167.6],[110,110,93,110,175,105,245,62,95,123],[3.9,3.9,3.85,3.08,3.15,2.76,3.21,3.69,3.92,3.92],[2.62,2.875,2.32,3.215,3.44,3.46,3.57,3.19,3.15,3.44],[16.46,17.02,18.61,19.44,17.02,20.22,15.84,20,22.9,18.3],[0,0,1,1,0,1,0,1,1,1],[1,1,1,0,0,0,0,0,0,0],[4,4,4,3,3,3,3,4,4,4],[4,4,1,1,2,1,4,2,2,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mpg<\/th>\n      <th>cyl<\/th>\n      <th>disp<\/th>\n      <th>hp<\/th>\n      <th>drat<\/th>\n      <th>wt<\/th>\n      <th>qsec<\/th>\n      <th>vs<\/th>\n      <th>am<\/th>\n      <th>gear<\/th>\n      <th>carb<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+See the [DT package documentation](https://rstudio.github.io/DT/) for the
+additional options.
+
+---
+class: animate__animated, animate__slideInRight
+
+## Add slide transitions to  your slides
+
+Simply add the class `animate__animated` and the class corresponding to the
+desired animation such as `animate__slideInRight`, et voilà!
+
+For a complete list of the available animations and further options, visit
+[animate.style](https://animate.style/).
+
+.center[![Animation GIF](https://i.giphy.com/media/Oo6GWyiWEDgtO/giphy.webp)]
+
+---
+background-image: url(https://media1.giphy.com/media/xT0BKiK5sOCVdBUhiM/giphy.gif)
+background-size: contain
+
+# And finally, you can add gifs!
+
+---
+class: inverse iheid-red center middle with-logo logo-iheid_BW
+
+Made with `{iheiddown}`, the R-package for IHEID publications
+(Hollway, 2021).
 
 ---
 
-class: inverse, middle, center
+# References
 
-# 👇🏽
-
-## R Markdown:
-
-https://www.markdowntutorial.com
-
-https://andrewbtran.github.io/NICAR/2018/workflow/docs/02-rmarkdown.html
-
-https://yihui.name/tinytex/ *(install!)*
-
-https://github.com/rstudio/cheatsheets/blob/master/rmarkdown-2.0.pdf
-
-https://rmarkdown.rstudio.com/html_document_format.html
-
-https://rmarkdown.rstudio.com/pdf_document_format.html
+Hollway, J. (2021). _iheiddown: A package for writing IHEID documents
+in RMarkdown_. R package version 0.8.0. URL:
+[https://github.com/jhollway/iheiddown](https://github.com/jhollway/iheiddown).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/macros.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "atelier-lakeside-light",
+"ratio": "16:9",
+"highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
@@ -637,6 +480,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -654,17 +523,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {

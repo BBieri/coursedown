@@ -1,430 +1,445 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Lab 02: CS631</title>
+    <title>Title</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Alison Hill" />
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/ohsu.css" type="text/css" />
-    <link rel="stylesheet" href="css/ohsu-fonts.css" type="text/css" />
+    <meta name="author" content="Author Name" />
+    <script src="02-slides_files/header-attrs/header-attrs.js"></script>
+    <link href="02-slides_files/remark-css/default.css" rel="stylesheet" />
+    <link href="02-slides_files/remark-css/ninjutsu.css" rel="stylesheet" />
+    <script src="02-slides_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="02-slides_files/jquery/jquery-3.6.0.min.js"></script>
+    <link href="02-slides_files/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="02-slides_files/leaflet/leaflet.js"></script>
+    <link href="02-slides_files/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="02-slides_files/proj4/proj4.min.js"></script>
+    <script src="02-slides_files/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="02-slides_files/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="02-slides_files/leaflet-binding/leaflet.js"></script>
+    <script src="02-slides_files/kePrint/kePrint.js"></script>
+    <link href="02-slides_files/lightable/lightable.css" rel="stylesheet" />
+    <link href="02-slides_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="02-slides_files/datatables-binding/datatables.js"></script>
+    <link href="02-slides_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="02-slides_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="02-slides_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="02-slides_files/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="02-slides_files/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/iheid-xaringan-style.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Lab 02: CS631
-## Working in the Tidyverse
-### Alison Hill
+# Title
+## Subtitle
+### <large>Author Name</large>
 
 ---
 
+class: center, middle
+
+# With this template, it is very easy to build good looking slides
+
+## and you can centre everything for title/section/other slides
 
 
 
-
-
-# Tidyverse basics
-
-In David Robinson's DataCamp course you learned:
-
-- `&lt;-` (variable assignment)
-- `%&gt;%` (then...)
-- `dplyr`, `ggplot2` (packages)
-  - `install.packages("dplyr")` (1x per machine)
-  - `library(dplyr)` (1x per work session)
-
----
-class: center, middle, inverse
-
-# 📇
-
-## Let's review
-
----
-# Data for today
-
-We'll use data from the Museum of Modern Art (MoMA)
-
-- Publicly available on [GitHub](https://github.com/MuseumofModernArt/collection)
-- As analyzed by [fivethirtyeight.com](https://fivethirtyeight.com/features/a-nerds-guide-to-the-2229-paintings-at-moma/)
-- And by [others](https://medium.com/@foe/here-s-a-roundup-of-how-people-have-used-our-data-so-far-80862e4ce220)
-
----
-# Get the data
-
-Use this code chunk to import my cleaned CSV file:
-
-
-```r
-library(readr)
-moma &lt;- read_csv("http://bit.ly/cs631-moma")
-```
 
 
 ---
+class: middle, inverse, iheid-red
 
-# Data wrangling so far
+## You can colour the background and add images using straightforward markdown syntax
 
-All functions from `dplyr` package
+.center[
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
+
+James Hollway (Instructor)
+]
+
+---
+## You can also pull images (or text) to the left or right to build columns
 
 .pull-left[
-From DataCamp Chapter 1
+.polaroid[![](https://graduateinstitute.ch/sites/default/files/styles/medium/public/2019-01/James%20Hollway.jpg?itok=1Yw0keum)]
 
-- print a tibble
-
-- `filter`
-
-- `arrange`
-
-- `mutate`
+James Hollway (Instructor)
 ]
-
---
 
 .pull-right[
-From Lab 01
+I can add paragraphs of extra information...
 
+or a bullet list...
 
-- `glimpse`
+- one
+- two
+- three
 
-- `distinct`
+or a numbered list...
 
-- `count`
+1. one
+1. two
+4. three
 ]
 
 ---
-class: middle, center, inverse
+class: split-four, center
 
-![](../images/rladylego-pipe.jpg)
+# Present your team by slicing the slide up with ninjutsu!
 
-## Plus: `%&gt;%`
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
 
-*image courtesy [@LegoRLady](https://twitter.com/LEGO_RLady/status/986661916855754752)*
+*Prof. Smith*
+
+Principal Investigator
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Dr. Jones*
+
+Doctoral Research Assistant
+
+]]
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Ms. Dupont*
+
+Research Assistant
+
+]]
+
+.column[.pull-down[![:scale 75%](https://www.seekpng.com/png/detail/143-1435868_headshot-silhouette-person-placeholder.png)
+
+*Mr. Dupond*
+
+Research Assistant
+
+]]
 
 ---
-class: middle, center, inverse
+## You can build a step-by-step reveal
 
-# ⌛️
+--
 
-## Let's review some helpful functions for `filter`
+By using double dashes `--` to separate lines of text or code,
+we can build a slide up gradually.
+--
 
----
-class: inverse, bottom, center
-background-image: url("../images/peapod.png")
-background-size: 25%
+For example here is some more text...
+--
 
+Or here is an example of some math...
 
-## Base R + Tidyverse
+$$ X = \sum_i^n x_i $$
 
----
-class: middle, center, inverse
+--
 
-#💡
-
-## First: 
-
-## Logical Operators
-
-
-
----
-
+Or here is a quick plot built (and cached) when the Rmarkdown document is run:
 
 
 ```r
-?base::Logic
+plot(iris)
 ```
 
-
-
-
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Operator &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Usage &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; &amp;amp; &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; and &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x &amp;amp; y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; | &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; or &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x | y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; xor &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; exactly x or y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; xor(x, y) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; ! &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; not &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; !x &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-1-1.png" width="504" /&gt;
 
 ---
+class: highlight-last-item
 
-Logical or (`|`) is inclusive, so `x | y` really means: 
+## Add progressive lists
 
-* x or 
-* y or 
-* both x &amp; y
+Adding the class `highlight-last-item` allows you to highlight the last element
+of a progressive list.
 
-Exclusive or (`xor`) is exclusive, so `xor(x, y)` really means: 
+- First item
 
-* x or
-* y...
-* but not both x &amp; y
+--
+
+- Second item
+
+--
+
+-  For more options, see the `iheid-xaringan-style.css` file and search for
+"progressive slides". This feature was based on [this great article](https://www.garrickadenbuie.com/blog/better-progressive-xaringan/?panelset2=r-markdown3&amp;panelset=r-markdown&amp;panelset1=slides2).
+
+---
+class: show-only-last-code-result
+
+## Progressive code
+
+Adding the class `show-only-last-code-result` allows you to render only the last
+code result.
 
 
 ```r
-x &lt;- c(0, 1, 0, 1)
-y &lt;- c(0, 0, 1, 1)
-boolean_or &lt;- x | y
-exclusive_or &lt;- xor(x, y)
-cbind(x, y, boolean_or, exclusive_or)
+runif(5)
 ```
 
 ```
-     x y boolean_or exclusive_or
-[1,] 0 0          0            0
-[2,] 1 0          1            1
-[3,] 0 1          1            1
-[4,] 1 1          1            0
+## [1] 0.3309911 0.0629267 0.9818636 0.6678840 0.7814797
 ```
+--
 
----
-class: middle, center, inverse
-
-#💡
-
-## Second: 
-
-## Comparisons
-
----
 
 ```r
-?Comparison
+rnorm(5)
 ```
 
+```
+## [1] -1.52496611  0.06993266 -1.29372485  0.00552295 -0.44708406
+```
+--
 
 
+```r
+rbinom(5, 1, 0.5)
+```
 
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Operator &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Usage &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; &amp;lt; &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; less than &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x &amp;lt; y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; &amp;lt;= &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; less than or equal to &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x &amp;lt;= y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; &amp;gt; &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; greater than &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x &amp;gt; y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; &amp;gt;= &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; greater than or equal to &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x &amp;gt;= y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; == &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; exactly equal to &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x == y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; != &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; not equal to &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x != y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; %in% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; group membership* &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; x %in% y &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; is.na &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; is missing &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; is.na(x) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; !is.na &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; is not missing &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; !is.na(x) &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+```
+## [1] 1 0 1 1 0
+```
+--
 
-*(shortcut to using `|` repeatedly with `==`)
+
+```r
+rcauchy(5)
+```
+
+```
+## [1]  2.207553  2.094960  3.352931  7.440851 -1.169294
+```
 
 ---
-## Lab 02: Challenge 1 (`dplyr`)
+class: center, middle
+## Or you can highlight which section of your presentation you are up to...
 
-1. How many paintings (rows) are in `moma`? How many variables (columns) are in `moma`?
-1. What is the first painting acquired by MoMA? Which year? Which artist? What title?
-    - *Hint: you may want to look into `select` + `arrange`*
-1. What is the oldest painting in the collection? Which year? Which artist? What title? *(see above hint)*
-1. How many distinct artists are there?
-1. Which artist has the most paintings in the collection? How many paintings are by this artist?
-1. How many paintings are by male vs female artists?
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/NYCS-bull-trans-1.svg/1024px-NYCS-bull-trans-1.svg.png)]]
+.pull-1[.circleon[![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/NYCS-bull-trans-2.svg/1200px-NYCS-bull-trans-2.svg.png)]]
+.pull-1[.circleoff[![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1200px-NYCS-bull-trans-3.svg.png)]]
 
-If you want more:
-1. How many artists of each gender are there?
-1. In what year were the most paintings acquired? Created?
-1. In what year was the first painting by a (solo) female artist acquired? When was that painting created? Which artist? What title? 
+---
+class: left, middle
 
+.blockquote[You can add unquotable quotes
 
+~ Some person]
+
+---
+class: with-logo logo-iheid
+
+## Add a logo to your presentation 
+
+.pull-left[Adding a nice looking logo to your presentation is easy. Simply 
+define the `with-logo` class alongside the class of the logo itself 
+(`logo-iheid` in this case) on every slide you want the logo to appear.
+
+See [the presentation vignette](https://github.com/jhollway/iheiddown) for a
+list of the included logos.]
 
 ---
 
-# From DataCamp Chapter 2
+## Add Maps
 
-all `ggplot2`
 
-- `aes(x = , y = )` (aesthetics)
-- `aes(x = , y = , color = )` (add color)
-- `aes(x = , y = , size = )` (add size)
-- `+ facet_wrap(~ )` (facetting)
+```r
+library(leaflet)
+leaflet() %&gt;%
+  addTiles() %&gt;%
+  setView(6.1435, 46.2210, zoom = 17)
+```
+
+<div id="htmlwidget-ca191aa3b8ce2a9d7983" style="width:720px;height:288px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ca191aa3b8ce2a9d7983">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[46.221,6.1435],17,[]]},"evals":[],"jsHooks":[]}</script>
 
 ---
-# Old School (Challenge 2)&lt;sup&gt;1&lt;/sup&gt;
 
-- Sketch the graphics below on paper, where the `x`-axis is variable `year_created` and the `y`-axis is variable `year_acquired`
+## Add some tables !
 
+With the addition of the excellent [`{xaringan_columns}`](https://github.com/emilyriederer/xaringan_columns) macros by Emily
+Riederer, you can create nice looking multicolumn tables using clean markdown code.
 
-```
-# A tibble: 4 x 4
-  painted acquired  area gender
-    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-1    1980     1985     3 male  
-2    1990     1995     2 male  
-3    2000     2005     1 female
-4    2010     2015     2 female
-```
-
-&lt;!-- Copy to chalkboard/whiteboard --&gt;
-
-1. A scatter plot
-1. A scatter plot where the `color` of the points corresponds to `gender`
-1. A scatter plot where the `size` of the points corresponds to `area`
-
-.footnote[
-[1] Shamelessly borrowed with much appreciation to [Chester Ismay](https://ismayc.github.io/talks/ness-infer/slide_deck.html)
+![:col_header Header 1, Header 2, Header 3, Header 4, Header 5]
+![:col_list You can add rows with bulletted lists, item2, item3, hello, more content]
+![:col_list item4, item5, Or normal chunks of text (see below), la la la, tra la la]
+![:col_row 
+    More text,
+    More text,
+    .,
+    More text,
+    More text
 ]
 
 ---
 
-# 1. A scatterplot
+## More tables; kable and kableExtra packages
+.pull-left[Kable: great features for displaying simple tables!
+
+```r
+knitr::kable(head(mtcars[1:4], 5), format = 'html')
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mpg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; disp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; hp &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 Wag &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Datsun 710 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hornet 4 Drive &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 258 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hornet Sportabout &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 360 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 175 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+See [the knitr documentation](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)
+for additional options.
+]
+
+.pull-right[Want to get fancier? Use kableExtra!
+
+```r
+head(mtcars[1:4], 3) %&gt;% 
+  kableExtra::kbl()%&gt;%
+  kableExtra::kable_material(c("hover", "striped", "condensed"), full_width = F)
+```
+
+&lt;table class=" lightable-material lightable-striped lightable-hover" style='font-family: "Source Sans Pro", helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mpg &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; disp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; hp &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mazda RX4 Wag &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Datsun 710 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 93 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+See [the kableExtra documentation](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+for additional options.
+]
+
+---
+
+## Interactive tables; DT package
 
 
 ```r
-library(ggplot2)
-ggplot(moma_ex, aes(painted, acquired)) + 
-  geom_point()
+library(DT)
+DT::datatable(head(mtcars, 10),
+  fillContainer = FALSE, options = list(pageLength = 4))
 ```
---
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+<div id="htmlwidget-8bdb28e1e1ea1081b9f0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8bdb28e1e1ea1081b9f0">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["Mazda RX4","Mazda RX4 Wag","Datsun 710","Hornet 4 Drive","Hornet Sportabout","Valiant","Duster 360","Merc 240D","Merc 230","Merc 280"],[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2],[6,6,4,6,8,6,8,4,4,6],[160,160,108,258,360,225,360,146.7,140.8,167.6],[110,110,93,110,175,105,245,62,95,123],[3.9,3.9,3.85,3.08,3.15,2.76,3.21,3.69,3.92,3.92],[2.62,2.875,2.32,3.215,3.44,3.46,3.57,3.19,3.15,3.44],[16.46,17.02,18.61,19.44,17.02,20.22,15.84,20,22.9,18.3],[0,0,1,1,0,1,0,1,1,1],[1,1,1,0,0,0,0,0,0,0],[4,4,4,3,3,3,3,4,4,4],[4,4,1,1,2,1,4,2,2,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mpg<\/th>\n      <th>cyl<\/th>\n      <th>disp<\/th>\n      <th>hp<\/th>\n      <th>drat<\/th>\n      <th>wt<\/th>\n      <th>qsec<\/th>\n      <th>vs<\/th>\n      <th>am<\/th>\n      <th>gear<\/th>\n      <th>carb<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
+See the [DT package documentation](https://rstudio.github.io/DT/) for the
+additional options.
+
+---
+class: animate__animated, animate__slideInRight
+
+## Add slide transitions to  your slides
+
+Simply add the class `animate__animated` and the class corresponding to the
+desired animation such as `animate__slideInRight`, et voilà!
+
+For a complete list of the available animations and further options, visit
+[animate.style](https://animate.style/).
+
+.center[![Animation GIF](https://i.giphy.com/media/Oo6GWyiWEDgtO/giphy.webp)]
+
+---
+background-image: url(https://media1.giphy.com/media/xT0BKiK5sOCVdBUhiM/giphy.gif)
+background-size: contain
+
+# And finally, you can add gifs!
+
+---
+class: inverse iheid-red center middle with-logo logo-iheid_BW
+
+Made with `{iheiddown}`, the R-package for IHEID publications
+(Hollway, 2021).
 
 ---
 
+# References
 
-# 2. `color` points by `gender`
-
-
-```r
-library(ggplot2)
-ggplot(moma_ex, aes(painted, acquired, color = gender)) + 
-  geom_point()
-```
---
-
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-
----
-
-# 3. `size` points by `area`
-
-
-```r
-library(ggplot2)
-ggplot(moma_ex, aes(painted, acquired, size = area)) + 
-  geom_point()
-```
---
-
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
----
-
-# [The Five-Named Graphs](http://moderndive.com/3-viz.html#FiveNG)
-
-
-- Scatterplot: `geom_point()`
-- Line graph: `geom_line()`
-- Histogram: `geom_histogram()`
-- Boxplot: `geom_boxplot()`
-- Bar graph: `geom_bar()` or `geom_col` (see [Lab 01](../01-eda_hot_dogs.html))
-
-
-
----
-# Lab 02: Plotting Challenges
-
-Challenges 3-5 are in the [Lab 02 code-through](../02-moma.html)!
-
-https://apreshill.github.io/data-vis-labs-2018/02-moma.html
-
----
-class: inverse, middle, center
-
-
-# 📊
-
-## Basics of `ggplot2` and `dplyr`:
-
-[R4DS `ggplot2` chapter](http://r4ds.had.co.nz/data-visualisation.html)
-
-[ModernDive `ggplot2` chapter](http://moderndive.com/3-viz.html)
-
-[RStudio `ggplot2` Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
-
-[R4DS `dplyr` chapter](http://r4ds.had.co.nz/transform.html)
-
-[ModernDive `dplyr` chapter](http://moderndive.com/5-wrangling.html)
-
-[RStudio `dplyr` Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+Hollway, J. (2021). _iheiddown: A package for writing IHEID documents
+in RMarkdown_. R package version 0.8.0. URL:
+[https://github.com/jhollway/iheiddown](https://github.com/jhollway/iheiddown).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/macros.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "atelier-lakeside-light",
+"ratio": "16:9",
+"highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
@@ -465,6 +480,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -482,17 +523,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
