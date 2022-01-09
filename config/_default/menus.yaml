@@ -7,21 +7,15 @@ main:
   - name: Syllabus
     url: 'https://www.graduateinstitute.ch/courses' # Insert the URL to your PDF syllabus here
     weight: 1
-  - name: Classes
+  - name: Classes # Delete me if you don't need me.
     url: 'post'
     weight: 2
-  - name: Resources
+  - name: Resources # Delete me if you don't need me.
     url: 'courses/resources/'
     weight: 3
-  - name: '<i class="fab fa-slack"></i>'
+  - name: User Guide # Delete me if you don't need me.
+    url: 'courses/userguide/'
+    weight: 3
+  - name: '<i class="fab fa-slack"></i>'  # Delete me if you don't need me.
     url: "https://slack.com"
     weight: 4
-  # - name: Publications
-  #   url: '#featured'
-  #   weight: 50
-  # - name: Courses
-  #   url: courses/
-  #   weight: 60
-  # - name: Contact
-  #   url: '#contact'
-  #   weight: 70
