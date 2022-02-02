@@ -21,6 +21,10 @@ library(tidyverse)
 library(extrafont)
 ```
 
+> NOTE: This tutorial is only there to illustrate the publishing workflow. It
+was originally written by Alison Hill. It will soon be replaced by an in house
+one.
+
 # Goals for Lab 01
 
 - Get your feet wet!

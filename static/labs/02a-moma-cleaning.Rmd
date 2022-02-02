@@ -15,7 +15,9 @@ knitr::opts_chunk$set(error = TRUE, comment = NA, warning = FALSE, errors = FALS
 library(tidyverse)
 ```
 
-
+> NOTE: This tutorial is only there to illustrate the publishing workflow. It
+was originally written by Alison Hill. It will soon be replaced by an in house
+one.
 
 
 # Load the MOMA data

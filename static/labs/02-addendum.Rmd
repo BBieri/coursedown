@@ -14,6 +14,10 @@ output:
 knitr::opts_chunk$set(error = TRUE, comment = NA, warning = FALSE, errors = FALSE, message = FALSE, tidy = FALSE, cache = FALSE)
 ```
 
+> NOTE: This tutorial is only there to illustrate the publishing workflow. It
+was originally written by Alison Hill. It will soon be replaced by an in house
+one.
+
 ```{r}
 library(tidyverse)
 moma <- read_csv("http://bit.ly/cs631-moma")

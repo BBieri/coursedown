@@ -1,5 +1,5 @@
 ---
-title: 'Introduce Yourself'
+title: 'Getting started with R'
 author: "Alison Hill"
 output:
   html_document:
@@ -11,7 +11,12 @@ output:
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
-knitr::opts_chunk$set(error = TRUE, comment = NA, warnings = FALSE, errors = FALSE, messages = FALSE, tidy = FALSE)
+knitr::opts_chunk$set(error = TRUE,
+                      comment = NA,
+                      warnings = FALSE,
+                      errors = FALSE,
+                      messages = FALSE,
+                      tidy = FALSE)
 ```
 
 ```{r load-packages, include = FALSE}
@@ -19,11 +24,14 @@ library(tidyverse)
 library(babynames)
 ```
 
-> Read all the way through step 6, and note that there is a file that needs to be turned in to Sakai before Wednesday at noon!
+> NOTE: This tutorial is only there to illustrate the publishing workflow. It
+was originally written by Alison Hill. It will soon be replaced by an in house
+one.
 
 # Overview
 
-This guide will lead you through the steps to install and use [R, a free and open-source software environment for statistical computing and graphics.](https://www.r-project.org) 
+This guide will lead you through the steps to install and use$
+[R, a free and open-source software environment for statistical computing and graphics.](https://www.r-project.org) 
 
 
 What is R?

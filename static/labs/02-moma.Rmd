@@ -15,6 +15,10 @@ output:
 knitr::opts_chunk$set(error = TRUE, comment = NA, warning = FALSE, errors = FALSE, message = FALSE, tidy = FALSE, cache = FALSE, fig.path= "02-figs/")
 ```
 
+> NOTE: This tutorial is only there to illustrate the publishing workflow. It
+was originally written by Alison Hill. It will soon be replaced by an in house
+one.
+
 # Goals for Lab 02
 
 - Review `dplyr` functions learned in last lab and DataCamp course
