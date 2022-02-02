@@ -16,7 +16,7 @@ weight: 1
 
 Many lecturers, professors and R-aficionados have great scripts living a
 peaceful but very lonely life on their machines. While they sometimes get shared
-on the likes of Moodle or via email, they rarely get the chance of living on a
+on the likes of Moodle or via Dropbox, they rarely get the chance of living on a
 dedicated website since there is often a non-negligible upfront cost in setting
 it up. This is exactly where `{coursedown}` comes in! Designed to minimize the
 time banging one's head over CSS styling options or HTML building blocks, it
@@ -25,7 +25,7 @@ than an hour.
 
 ## Let's get started!
 
-I'll assume that you already have the necessary accounts and software installed for a
+We'll assume that you already have the necessary accounts and software installed for a
 standard `{blogdown}` site. If not, you can get started by reading [this tutorial](https://bernhardbieri.ch/blog/quickstart-guide-to-blogdown/) or [this one](https://www.apreshill.com/blog/2020-12-new-year-new-blogdown/).
 It will also assume that you are somewhat familiar with the blogdown `{blogdown}`
 publishing workflow. If you need a quick refresher, read [this great post](https://www.apreshill.com/blog/2020-12-new-year-new-blogdown/).
@@ -35,15 +35,36 @@ and share!
 
 ### Fork
 
-The first step in setting up your site is to fork it from the
-[`{coursedown}`repository](https://github.com/BBieri/coursedown). Set up the
-description, the title and the readme to describe your site and commit the
-changes. When your site is on GitHub, head to [Netlify](https://www.netlify.com/) and
-deploy your site by linking it to their services. Note that a free plan should be
-more than enough to cover your needs. You'll now be able to access
-your `{coursedown}` site online with an automatically generated link shown on
-the Netlify settings page of your site.
-Congrats! Your site is now online. 
+The first step in setting up your site is to "fork" it from the
+[`{coursedown}`repository](https://github.com/BBieri/coursedown). Note here that
+the `{coursedown}` repository has a special structure since it actually is a
+template repository! Hence the only thing you need to do is to click on the
+green "Use this template" button and select a name for your repository.
+
+![usetemplate](/media/courses/userguide/1_UseTemplate.png)
+
+![createrepository](/media/courses/userguide/2_CreateRepo.png)
+
+Once the repository is created, clone it to your local machine with your Git
+client. Then, set up the description, the title and the README of your repository
+to reflect the information of your course.
+When your repository is set up on GitHub, head to
+[Netlify](https://www.netlify.com/) and deploy your site by linking it to their
+services. Note that a free plan should be more than enough to cover your needs.
+
+![netlifyaddsite](/media/courses/userguide/3_Netlify1.png)
+
+![netlifyaddsite2](/media/courses/userguide/4_Netlify2.png)
+
+You should not have to change anything in the following site settings. Once
+once you're done, click deploy!
+
+![netlifyaddsite3](/media/courses/userguide/5_Netlify3.png)
+
+After waiting a minute or two to let Netlify build your site, you'll now be able
+to access your `{coursedown}` site online with an automatically generated link
+shown on the Netlify settings page of your site.
+Congrats! Your site is now online.
 
 ### Customize 
 
@@ -108,7 +129,7 @@ a domain. See [their documentation](https://docs.netlify.com/domains-https/custo
 on how best to do that.
 
 A neat way to promote your course online is to share a link to your website on
-Twitter. To make your post stand out, you can add an OpenGraph image to your
+Twitter. To make your Twitter post stand out, you could add an OpenGraph image to your
 GitHub repository. To read up on how to do this exactly head over to
 [GitHub's documentation](https://github.blog/2021-06-22-framework-building-open-graph-images/).
 
