@@ -25,6 +25,7 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 
+# Set a link to the corresponding lab here.
 links:
 - icon: flask
   icon_pack: fas

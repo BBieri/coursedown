@@ -1,6 +1,6 @@
 ---
-title: 'Getting started with R'
-author: "Alison Hill"
+title: 'Get staRted!'
+author: "Bernhard Bieri"
 output:
   html_document:
     theme: flatly
@@ -8,6 +8,8 @@ output:
     toc_float: TRUE
     toc_depth: 2
     number_sections: TRUE
+    css: css/style.css
+    code_folding: show
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
@@ -21,216 +23,345 @@ knitr::opts_chunk$set(error = TRUE,
 
 ```{r load-packages, include = FALSE}
 library(tidyverse)
-library(babynames)
+library(gapminder)
 ```
 
-> NOTE: This tutorial is only there to illustrate the publishing workflow. It
-was originally written by Alison Hill. It will soon be replaced by an in house
-one.
+# Installing R and RStudio
 
-# Overview
+This guide will get you ready to work with R and RStudio. It will also teach
+you the basics of version control with GitHub within you data analysis workflow
+to facilitate collaboration and ensure the safety of your data and scripts.
 
-This guide will lead you through the steps to install and use$
-[R, a free and open-source software environment for statistical computing and graphics.](https://www.r-project.org) 
+The installation process of these different tools will be done in the following
+few steps you should do in order. 
 
+# Installing R
 
-What is R?
+R is a free software environment and programming language for statistical computing and data visualization maintained by the R foundation.
 
-* **R** is the name of the programming language itself, based off of S from Bell Labs, which users access through a command-line interpreter (`>`)
+To install R, head to [Comprehensive R Archive Network (CRAN)](https://cloud.r-project.org/) and choose the version corresponding to
+your operating system (Windows, MacOS, Linux). Make sure you click on
+a link in the upper box of the page to get the precompiled version of R.
 
-What is RStudio?
+* If you prefer watching a step by step guide, check out roughly the first half
+of these videos!:
 
-* **RStudio** is a powerful and convenient user interface that allows you to access the R programming language along with a lot of other bells and whistles that enhance functionality (and sanity). 
+    - [Installing R on Windows](https://www.youtube.com/watch?v=NZxSA80lF1I&ab_channel=TechDecodeTutorials)
+    - [Installing R on MacOS (M1 and Intel)](https://www.youtube.com/watch?v=cCgiR1uwXzU&ab_channel=TechDecodeTutorials)
+    - [Installing R on Ubuntu](https://www.youtube.com/watch?v=kF0-FH-xBiE&ab_channel=MelvinL)
 
-Our end goal is to get you looking at a screen like this:
+## Try it out !
 
-![](./images/00_final-screenshot.png)
+Great! Now that you have successfully installed R, close the installer and
+start R. You should be greeted with a window looking like this:
 
-# Install R
+![](00-figs/R-GUI.png)
 
-Install R from [CRAN, the Comprehensive R Archive Network](https://cran.rstudio.com). Please choose a **precompiled binary distribution** for your operating system.
+This is the basic interface which you can use to interact with R. Try running
+the following command to test it out
+`print("Congratulations on installing R!")` before closing it again.
 
-* If you need more help, check out one of the following videos (courtesy of Roger Peng at Johns Hopkins Biostatistics):
-    - [Installing R on a mac](https://www.youtube.com/watch?v=Icawuhf0Yqo&feature=youtu.be)
-    - [Installing R on windows](https://www.youtube.com/watch?v=mfGFv-iB724&feature=youtu.be)
-* If you need even more help, read this [step-by-step guide](https://beckmw.files.wordpress.com/2014/09/r_install_guide.pdf), including screenshots.
-
-## Check in
-
-Launch R. You should see one console with a command line interpreter (`>`). Close R.
+This simple GUI isn't very pretty and does not display a lot of information.
+Let's install RStudio to remedy that!
 
 # Install RStudio 
 
-Install the free, open-source edition of RStudio: http://www.rstudio.com/products/rstudio/download/
+RStudio is a free integrated development environment (IDE) that allows you to
+be more productive while analysing and visualizing data by integrating
+features such as code highlighting, debugging tools, workspace managers, etc.
+You can even [run Python scripts](https://www.rstudio.com/blog/three-ways-to-program-in-python-with-rstudio/) in RStudio!
 
-RStudio provides a powerful user interface for R, called an *integrated development environment*. RStudio includes:
+To install R studio, simply head to [their website](https://www.rstudio.com/products/rstudio/download/#download) and select
+the installer corresponding to the version of your OS.
 
-* a console (the standard command line interface: `>`), 
-* a syntax-highlighting editor that supports direct code execution, and 
-* tools for plotting, history, debugging and workspace management.
+NB: If you have trouble installing RStudio, check out the second part of the
+installation videos linked above for a step by step guide.
 
+## Try out RStudio
 
-## Check in
+Awesome! Now launch RStudio. You should see a window that is similar to the one
+I have while I am writing this article (with a different theme).
 
-Launch RStudio. You should get a window similar to the screenshot you see [here](https://www.rstudio.com/wp-content/uploads/2014/04/rstudio-workbench.png), but yours will be empty. Look at the bottom left pane: this is the same console window you saw when you opened R in step 1.15. 
+![](00-figs/RStudio.png)
 
-* Place your cursor where you see `>` and type `x <- 2 + 2`, hit enter or return, then type `x`, and hit enter/return again. 
-* If `[1] 4` prints to the screen, you have successfully installed R and RStudio, and you can move onto installing packages.
+If this is the case, try running a few simple lines of code to test whether
+R and RStudio have been correctly installed. Let us type the following command
+in the console (i.e. the bottom left pane where you see `>`).
+Simply type `print("Congratulations on installing RStudio!")` and check that the
+resulting message you get is `[1] "Congratulations on installing RStudio!"`.
+Getting this message means that you have successfully installed both R and
+RStudio.
 
-# Install packages
+Before we proceed, take the time to look at the RStudio IDE cheatsheet you will
+find [here](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf).
+This will get you acquainted with the different panes and buttons on the screen.
 
-The version of R that you just downloaded is considered base R, which provides you with good but basic statistical computing and graphics powers. For analytical and graphical super-powers, you'll need to install add-on packages, which are user-written, to extend/expand your R capabilities. Packages can live in one of two places:
+# Getting readyfor your first data vizualization project!
 
-* They may be carefully curated by CRAN (which involves a thorough submission and review process), and thus are easy install using `install.packages("name_of_package", dependencies = TRUE)`. 
-* Alternatively, they may be available via GitHub. To download these packages, you first need to install the `devtools` package.
+Now that you have installed base R and the RStudio IDE you're almost ready for your
+first data visualization project! This little tutorial will also outline
+how to install new packages to extend R's functionalities and play around
+with objects such as graphs and dataframes!
+
+## Learning how to install R packages:
+
+A helpful metaphor that allowed me to grasp the difference between base R and
+packages is the workshop metaphor. Base R, the program we just installed, is our
+workshop and already contains a number of basic tools (e.g. functions) such as
+the `print()` function we used above. Now, think of packages as toolboxes of
+additional functions/tools that you can add to your workshop to speed up your
+data analysis workflow or to conduct more specialized tasks for instance e.g. a
+carpenter won't use the same tools as an electrician.
+
+Now that you know what packages are, you might wonder where one can download
+them. The good news is that the vast majority of them is one command away and
+is free and open-source (meaning that you can check their source code online!).
+There are essentially two places you will find them:
+
+- CRAN --> Installed via the `install.packages("package_name")` command
+- GitHub --> Installed via `devtools::install_github("username/repositoryname")`
+  command after having installed the `{devtools}` package from CRAN.
 
 ```{r devtools, eval = FALSE}
-install.packages("devtools")
-library(devtools)
-install_github("name_of_package")
+install.packages("devtools")  # Install the devtools package
+library(devtools)             # Load the package into the R session
+install_github("username/package_name") # Install some other package from Github
 ```
 
-Place your cursor in the console again (where you last typed `x` and `[4]` printed on the screen). You can use the first method to install the following packages directly from CRAN, all of which we will use:
+Now that we have seen how to install packages from the two main sources, let's
+try it out and install a couple of packages ourselves!
 
-  * [`dplyr`,](http://dplyr.tidyverse.org)
-  * [`ggplot2`,](http://ggplot2.tidyverse.org)
-  * [`babynames`](https://github.com/hadley/babynames)
+```{r installpkgs, eval = FALSE}
+# Run the following commands in your R-Studio console before proceeding
+install.packages("devtools")  # Install the devtools package
+install.packages("tidyverse") # A set of SUPER useful packages
+install.packages("gapminder") # Some data for our data visualization exercise
 
-  
-You can download all of these at once, too:
-```{r c_install, eval = FALSE}
-install.packages(c("dplyr", "ggplot2", "babynames"), 
-                 dependencies = TRUE)
+# NB: A neat way of doing this is to install them all at once by putting them
+# their names inside a vector with c()!
+install.packages(c("devtools", "tidyverse", "gapminder"))
 ```
 
-<p class="text-info"> __Heads up:__ We should formally introduce the combine command, [`c()`](http://stat.ethz.ch/R-manual/R-patched/library/base/html/c.html), used above. You will use this often- any time you want to combine things into a vector.</p>
+## Learning how to use R packages:
 
-```{r c_demo}
-c("hello", "my", "name", "is", "alison")
-c(1:3, 20, 50)
-```
+Awesome! You've just installed a few packages and considerably expanded your
+data analysis toolbox. Now, the unfortunate thing is that you cannot use these
+tools right away without telling R in which toolbox they are. In other words,
+you will need to either "import" them once per R session by running the
+`library(package_name)` command or reference them before each function
+by writing `package_name::myfunction()`.
 
-Mind your use of quotes carefully with packages.
-
-* To *install* a package, you put the name of the package in quotes as in `install.packages("name_of_package")`. 
-* To *use* an already installed package, you must load it first, as in `library(name_of_package)`, leaving the name of the package bare. You only need to do this once per RStudio session.
-* If you want *help*, no quotes are needed: `help(name_of_package)` or `?name_of_package`.
-* If you want the *citation* for a package (and you should give credit where credit is due), ask R as in `citation("name_of_package")`.
-
-```{r show_dplyr, eval = F}
-install.packages("dplyr", dependencies = TRUE)
+```{r use_packages, eval = FALSE}
+# tibble() is a function from the {dplyr} package we just installed with the
+# {tidyverse}. Hence, simply calling tibble() won't work:
+tibble(mtcars)
+# We can access it either by loading the {dplyr} package...
 library(dplyr)
-help("dplyr")
+tibble(mtcars)
+# ... or by referencing it explicitly:
+dplyr::tibble(mtcars)
+```
+You might wonder why the two ways exist since the first one seems way more
+convenient. One example when I found the second option safer and more convenient
+was when I was dealing with network analysis methods which came in different
+packages. Unfortunately, these packages contained identically or very similarly
+named functions which complicated my network analysis workflow. This becomes
+especially an issue since functions of the most recently loaded package take
+precedence over the latter. Hence, I've taken the habit of writing out the
+explicit name of the package from which the function comes. Plus, it will jog
+your memory and make you remember in which package you'll find which function!
+
+```{r load_packages, eval = FALSE}
+# Loading the previously installed packages
+library(devtools)
+library(tidyverse)
+library(gapminder)
 ```
 
-```{r help_dplyr}
-citation("ggplot2")
+## Package documentation and citation
+
+Every (user-accessible) function in a package contains a documentation file
+that you can access by typing `?function_name` after having loaded the package.
+This documentation details the inner workings of the function e.g. what type
+of inputs it must be provided and what is output is. This is usually the first
+place to look for help when encountering an error while using a function.
+
+Finally, as with every academic paper or book, it is important to cite the tools
+you used within your data analysis workflow. R made this simple by providing
+users with the simple `citation("name_of_package")` command.
+
+
+```{r ggplot2, eval = F}
+library(ggplot2)  # Load the{ggplot2} package
+help("ggplot2")   # Ask for package help page
+?tibble         # Ask for function help page
+```
+
+```{r citing_ggplot2}
+citation("dplyr") # Ask for citation info
 ```
 
 
-<p class="text-info"> __Heads up:__ R is **case-sensitive**, so `?dplyr` works but `?Dplyr` will not. Likewise, a variable called `A` is different from `a`.</p>
+<p class="alert alert-warning"> __Careful:__ R is **case-sensitive**, so `?ggplot2` works but `?Ggplot2` will not. Likewise, a variable called `A` is different from anoter called `a`.</p>
 
-# Make a name plot
 
-Open a new R script in RStudio by going to `File --> New File --> R Script`. For this first foray into R, I'll give you the code, so sit back and relax and feel free to copy and paste my code with some small tweaks.
+## Create your first plot
 
-First load the packages:
+Now that you have all the tools at your disposal, let's create our first
+data visualization project! Feel free to open up a new R script in RStudio
+by clicking on `File --> New File --> R Script` or holding down `CTRL+SHIFT+N`
+on your keyboard and copy and paste the following code into your file.
 
-```{r show_name_packages, eval = F}
-library(babynames) # contains the actual data
-library(dplyr) # for manipulating data
-library(ggplot2) # for plotting data
+The first thing we'll do is to load all the necessary packages for our
+little project:
+
+```{r loadpackages, eval = F}
+library(gapminder) # A package with the data we'll analyse
+library(tidyverse) # A set of packages for data analysis and visualization
 ```
 
+Datasets come in different formats and from various sources. We'll see in
+a further lab session how to import the most common types of datasets. For now 
+we will use the datasets contained in the 
+[`{gapminder}`](https://github.com/jennybc/gapminder) package. This data is
+essentially an excerpt of the famous [gapminder](https://www.gapminder.org/)
+database. Let's have a look at what we're working with!
 
-Next, we'll follow [best practices for inspecting a freshly read dataset](https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf). Also, see ["What I do when I get a new data set as told through tweets"](http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/) for more ideas about exploring a new dataset. Here are some critical commands to obtain a high-level overview (HLO) of your freshly read dataset in R. We'll call it saying hello to your dataset:
-
-```{r hlo_dataset}
-glimpse(babynames) # dplyr
-head(babynames) # base R
-tail(babynames) # same
-names(babynames) # same
+```{r FirstLook}
+# Let's look at the original dataset from the {gapminder} package
+glimpse(gapminder) # Displays a description of the data (dplyr)
+head(gapminder) # Displays the first observations (base R)
+tail(gapminder) # Displays the last observations (base R)
+names(gapminder) # Displays column names (base R)
+summary(gapminder) # Displays a summary of the data
 ```
 
+It looks like a panel dataset with 5-year interval observations of the life 
+expectancy, the population and the GDP per capita for each country over the 
+period 1952-2007. Let's create a new dataframe by selecting only the data for
+a few European countries to plot the evolution of income per capita over time.
 
-If you have done the above and produced sane-looking output, you are ready for the next bit. Use the code below to create a new data frame called `alison`.
 
-```{r manipulate_name_data}
-alison <- babynames %>%
-  filter(name == "Alison" | name == "Allison") %>% 
-  filter(sex == "F") 
+```{r extracteudata}
+# Extract information with dplyr:
+eu_data <- gapminder %>%
+  filter(country == "Switzerland" |
+           country == "France" |
+           country == "Germany")
+
+# The equivalent, non-pipe code looks like this:
+# eu_data <- gapminder
+# eu_data <- filter(eu_data,
+#                   country == "Switzerland" |
+#                     country == "France" |
+#                     country == "Germany")
 ```
 
-* The first bit makes a new dataset called `alison` that is a copy of the `babynames` dataset- the `%>%` tells you we are doing some other stuff to it later.
+The first line assigns the `gapminder` dataset to the `eu_data` variable. The
+[pipe operator `%>%`](https://r4ds.had.co.nz/pipes.html) allows us to combine
+multiple operations on a single dataset. For instance, here we filter our
+observations with `dplyr::filter()` after creating the new `eu_data` dataset.
 
-* The second bit `filters` our `babynames` to only keep rows where the `name` is either Alison or Allison (read `|` as _"or"_.) 
-
-* The third bit applies another `filter` to keep only those where sex is female.
-
-Let's check out the data.
+How does this subsetted dataframe look now ?
 
 ```{r}
-alison
-glimpse(alison)
+eu_data
+summary(eu_data)
 ```
 
-Again, if you have sane-looking output here, move along to plotting the data!
+Looks like we've successfully extracted the data for Switzerland, France and
+Germany! Let's move on and plot the life expectancy of these three countries
+over the past half century.
 
-```{r plot_name_data}
-plot <- ggplot(alison, aes(x = year, 
-                           y = prop,  
-                           group = name, 
-                           color = name)) + 
-  geom_line()  
+```{r createplot}
+# Create your first plot
+plot <- ggplot(eu_data, aes(x = year,           # Set the x axis
+                            y = lifeExp,        # Set the y axis
+                            group = country,    # Set the countries to plot
+                            color = country)) + # Set different colors
+  geom_line() # Add a line geom to draw the actual lines
 ```
 
-Now if you did this right, you will not see your plot! Because we saved the `ggplot` with a name (`plot`), R just saved the object for you. But check out the top right pane in RStudio again: under `Values` you should see `plot`, so it is there, you just have to ask for it. Here's how:
+Hold on, where is my plot? Didn't I just create it? 
+
+Absolutely, you just created your `plot` and saved it in your environment
+that you can see on the top right corner of your screen along side the `eu_data`
+dataframe. You can now visualize it by typing `plot` in your console!
 
 ```{r}
 plot 
 ```
 
-# Make a new name plot
+Et voilà! You just created your first plot in R!
 
-Edit my code above to create a new dataset. Pick 2 names to compare how popular they each are (these could be different spellings of your own name, like I did, but you can choose any 2 names that are present in the dataset). Make the new plot, changing the name of the first argument `alison` in `ggplot()` to the name of your new dataset.
+# Now it's your turn!
 
+Choose three other countries in the dataset and try to recreate the plot above!
+Don't forget to change the names of the objects your create e.g. `eu_data` to
+`yourcountries_data` and `plot` to `your_plot`. Feel free to add titles, labels,
+or captions. 
 
-## Save and share 
+```{r class.source = 'fold-hide', eval = TRUE}
+# Making the first plot fancy!
+fancyplot <- ggplot(eu_data, aes(x = year,      # Set the x axis
+                            y = lifeExp,        # Set the y axis
+                            group = country,    # Set the countries to plot
+                            color = country)) + # Set different colors
+  geom_line() + # Add a line geom to draw the actual lines
+  labs(title = "Evolution of the Life Expectancy",
+       subtitle = paste(unique(eu_data$country), collapse = ", "),
+       caption = "Data: {gapminder}",
+       x = "Year",
+       y = "Life expectancy",
+       color = "Country") + # Changing the labels of the various graph elements
+  theme_minimal()           # Add a more minimalist theme
+# Displaying the fancy plot
+fancyplot
+```
 
-Save your work so you can share your favorite plot with us. You will not like the looks of your plot if you mouse over to `Export` and save it. Instead, use `ggplot2`'s command for saving a plot with sensible defaults:
+## Save your creation
+
+The best way to save the plot you just created is to use `ggplot2::ggsave()`.
+This function makes it easy to specify the various export options of plots
+and provides opinionated but sensible defaults.
 
 ```{r eval = FALSE}
-help(ggsave)
+# Take a look at the documentation of the ggsave function
+?ggsave
 ```
 
-```{r eval = F}
-ggsave("alison_hill.pdf", plot) # please make the filename unique!
+```{r eval = FALSE}
+# Specify the name of the file and the plot object you'd like to save
+ggsave("bernhards_plot.pdf", fancyplot)
 ```
 
-Upload this exported plot to Sakai before Wednesday at noon.
+Congrats! You've made it to the end of this first tutorial and have successfully
+installed R and R-Studio! In the next tutorial, we will look at version control
+software and learn how to install Git, Fork (a GUI for Git) and create an
+account on GitHub. In the meantime, feel free to experiment further with the
+`{gapminder}` data to create pretty visualizations!
 
-# Other cool `babynames` projects
-
-
-- Julia Silge *'My Baby Boomer Name Might Have Been "Debbie"'*: https://juliasilge.com/blog/my-baby-boomer-name/
-    - Use Julia's Shiny app: https://juliasilge.shinyapps.io/PredictNamesApp/
-![](https://juliasilge.com/figs/2016-02-29-My-Baby-Boomer-Name/unnamed-chunk-8-1.png)
-
-- Hilary Parker: Hilary: The Most Poisoned Baby Name in US History: https://hilaryparker.com/2013/01/30/hilary-the-most-poisoned-baby-name-in-us-history/
-
-![](https://hilaryparker.files.wordpress.com/2013/01/more_names_trimmed2.png)
+# Other nice `{gapminder}` visualizations
 
 
+- Check out [`{gapminder}`'s repository](https://github.com/jennybc/gapminder)
+on GitHub! They have a few pretty data visualization examples on their README
+page you could try to reproduce!
 
-# Resources
+- If you want to explore the data visualization capabilities of R and ggplot,
+check out the [*tidytuesday*](https://github.com/rfordatascience/tidytuesday) 
+challenge and the associated
+[shiny app](https://shiny.rstudio.com/gallery/tidy-tuesday.html)
+showcasing this week's charts.
 
-- https://alison.rbind.io/html/jamboree_heart_ggplot.html
 
-- http://moderndive.com/2-getting-started.html
+# Further resources
 
-- http://r4ds.had.co.nz
+- [Hadley Wickham's R for Data Analysis book](https://r4ds.had.co.nz)
 
-- https://www.rstudio.com/resources/cheatsheets/
+- [Grant McDermott's course](https://github.com/uo-ec607/lectures)
 
-- https://rweekly.org
+- [R Studio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+
+- [R-Weekly](https://rweekly.org)
 
