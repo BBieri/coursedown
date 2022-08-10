@@ -27,8 +27,37 @@ to the website to find a detailed [user
 guide](https://coursedown.netlify.app/courses/userguide/) and check out
 the various possibilities the theme offers!
 
+### Dependencies:
+
+While the template itself does not depend on the following packages.
+Some of the scripts depend on packages. You can either delete the
+problematic lab scripts in the `static/labs` folder or install them
+before building your site by running the following commands:
+
+``` r
+install.packages("tidyverse")
+install.packages("gapminder")
+```
+
 ## Open an issue
 
 Bug reports and suggestions for improvements are welcome! Simply [create
-an issue](https://github.com/BBieri/coursedown/issues) on GitHub and
-explain your issue :)
+an issue](https://github.com/BBieri/coursedown/issues) on GitHub or
+[open up a PR](https://github.com/BBieri/coursedown/compare).
+
+## Acknowledgements:
+
+The template was inspired by two other excellent blogdown sites: [Alison
+Hill’s “Sharing on short
+notice”](https://rstudio-education.github.io/sharing-short-notice/#1)
+and [Andrew Heiss’ Program Evaluation
+course](https://evalsp21.classes.andrewheiss.com/) and the present
+version of the demo site contains “lab pages” from Alison Hill’s site.
+These are only included for showcasing the possibilities of the site and
+will be replaced over the coming weeks.
+
+I cannot recommend [Alison Hill’s](https://www.apreshill.com/) and
+[Andrew Heiss’](https://www.andrewheiss.com/) blogs enough if you want
+to learn more about scientific publishing on the web in general or
+running a course on the web. Their blogs taught me most of what I know
+today!
